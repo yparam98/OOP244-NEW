@@ -7,8 +7,14 @@
 /****************************************/
 
 #include <iostream>
+#include "Word.h"
 
-int main ()
+using namespace sdds;
+
+int main()
 {
-    return 0;
+	programTitle();
+	wordStats();
+
+	return 0;
 }

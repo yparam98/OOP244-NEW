@@ -9,3 +9,7 @@
 #include <iostream>
 #include "Words.h"
 
+namespace sdds 
+{
+	
+}
