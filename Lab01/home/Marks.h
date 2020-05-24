@@ -1,14 +1,21 @@
 /****************************************/
 /*  Student:    Yathavan Parameshwaran  */
-/*  Assignment: Workshop 1.1            */
+/*  Assignment: Workshop 1.2            */
 /*  Course:     OOP244 (retake)         */
 /*  Professor:  Nathan Misener          */
 /*  Date:       May 24, 2020            */
 /****************************************/
 
-#include <iostream>
+#ifndef SDDS_MARKS_H
+#define SDDS_MARKS_H 
 
-int main ()
+namespace sdds
 {
-    return 0;
+	class Marks
+	{
+		private:
+		public:
+	};
 }
+
+#endif // SDDS_MARKS_H

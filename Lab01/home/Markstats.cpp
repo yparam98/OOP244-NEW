@@ -11,7 +11,8 @@ Date       Reason
 2020/5/19  Added comment to markstat() funciton call
 -----------------------------------------------------------*/
 #include "Marks.h"
-int main() {
+int main()
+{
    markstat(); // Runs the whole application
    return 0;
 }
