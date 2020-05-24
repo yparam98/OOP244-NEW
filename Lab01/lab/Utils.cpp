@@ -9,6 +9,7 @@
 #include <iostream>
 #include "Utils.h"
 
+/* returns the lower character version of the incoming character */
 char sdds::Utils::ToLower(char ch)
 {
     if (ch >= 'A' && ch <= 'Z')
@@ -19,6 +20,7 @@ char sdds::Utils::ToLower(char ch)
     return ch;
 }
 
+/* compares two strings */
 int sdds::Utils::StrCmp(const char *s1, const char *s2)
 {
     int i;
@@ -29,6 +31,7 @@ int sdds::Utils::StrCmp(const char *s1, const char *s2)
     return s1[i] - s2[i];
 }
 
+/* copies src string into destination */
 void sdds::Utils::StrCpy(char *des, const char *src)
 {
     int i;
@@ -41,6 +44,7 @@ void sdds::Utils::StrCpy(char *des, const char *src)
     des[i] = 0;
 }
 
+/* returns length of 'str' */
 int sdds::Utils::StrLen(const char *str)
 {
     int len;
@@ -51,11 +55,13 @@ int sdds::Utils::StrLen(const char *str)
     return len;
 }
 
+/* returns true if 'ch' is an alphabetical character, false otherwise */
 bool sdds::Utils::isAlpha(char ch)
 {
     return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z');
 }
 
+/* trims 'word' to specification */
 void sdds::Utils::trim(char word[])
 {
     int i;
@@ -73,6 +79,7 @@ void sdds::Utils::trim(char word[])
     }
 }
 
+/* converts 'src' to lowercase, and copies it into 'des' */
 void sdds::Utils::toLowerCaseAndCopy(char des[], const char src[])
 {
     int i = 0, j = 0;

@@ -9,16 +9,12 @@
 #ifndef SDDS_WORD_H
 #define SDDS_WORD_H
 
-#include "Utils.h"
-
 namespace sdds
 {
 	const int MAX_WORD_LEN = 21;
 	const int MAX_NO_OF_WORDS = 500;
 	const int SOFT_BY_OCCURANCE = 1;
 	const int SOFT_ALPHABETICALLY = 0;
-
-	Utils utils;
 
 	struct Word
 	{

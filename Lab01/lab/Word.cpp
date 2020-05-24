@@ -10,11 +10,16 @@
 #include <iomanip>
 
 #include "Word.h"
+#include "Utils.h"
 
+sdds::Utils utils;
+
+/* returns the index position of 'word' in 'words' array */
 int sdds::searchWords(const Word words[], int num, const char word[])
 {
     int i;
     int foundIndex = -1; // will be set to found index; if not found sould be less than 0
+
     for (i = 0; foundIndex == -1 && i < num; i++)
     { // while not found and i is less than number of words
         if (utils.StrCmp(words[i].letters, word) == 0)
@@ -22,9 +27,11 @@ int sdds::searchWords(const Word words[], int num, const char word[])
             foundIndex = i; // set the index to be returned.
         }
     }
+
     return foundIndex;
 }
 
+/* adds 'newWord' to 'words' array at position 'index' */
 void sdds::addWord(Word words[], int *index, const char newWord[])
 {
     utils.StrCpy(words[*index].letters, newWord);
@@ -32,6 +39,7 @@ void sdds::addWord(Word words[], int *index, const char newWord[])
     (*index)++;
 }
 
+/* prints the title */
 void sdds::title(const char *value, int len)
 {
     std::cout << value << std::endl;
@@ -40,11 +48,13 @@ void sdds::title(const char *value, int len)
               << "------------------------------------------------" << std::endl;
 }
 
+/* prints the list dividers */
 void sdds::endList()
 {
     std::cout << "------------------------------------------------" << std::endl;
 }
 
+/* prints statistics of the list */
 void sdds::totalWordsStat(int total_no_words, int total_over_all, int longest_word)
 {
     std::cout << "Total number of words used: " << total_no_words << std::endl;
@@ -52,6 +62,7 @@ void sdds::totalWordsStat(int total_no_words, int total_over_all, int longest_wo
     std::cout << "Longest word used had " << longest_word << " characters." << std::endl;
 }
 
+/* prints the 'word' and next line, if applicable */
 void sdds::print(const Word *word, bool goToNextLine, int len)
 {
     std::cout << std::setw(len) << std::left << word->letters;
@@ -63,6 +74,7 @@ void sdds::print(const Word *word, bool goToNextLine, int len)
     }
 }
 
+/* goes through 'words' to find the longest length */
 int sdds::findMaxLen(const Word words[], int numOfWords)
 {
     int longest = 0;
@@ -79,6 +91,7 @@ int sdds::findMaxLen(const Word words[], int numOfWords)
     return longest;
 }
 
+/* goes through 'words' and sends it to be printed along with counts */
 void sdds::listWords(const Word words[], int numOfWords, const char *the_title)
 {
     int i;
@@ -94,6 +107,7 @@ void sdds::listWords(const Word words[], int numOfWords, const char *the_title)
     endList();
 }
 
+/* swaps p1 and p2 values */
 void sdds::swap(Word *p1, Word *p2)
 {
     Word w;
@@ -102,6 +116,7 @@ void sdds::swap(Word *p1, Word *p2)
     *p2 = w;
 }
 
+/* sorts the words in 'words' by the type of 'sortType' */
 void sdds::sort(Word words[], int count, int sortType)
 {
     int i, j;
@@ -131,6 +146,7 @@ void sdds::sort(Word words[], int count, int sortType)
     }
 }
 
+/* prints count statistics */
 int sdds::totalCount(const Word *words, int num)
 {
     int total = 0;
@@ -143,6 +159,7 @@ int sdds::totalCount(const Word *words, int num)
     return total;
 }
 
+/* takes the values from the list and runs it through the program */
 void sdds::wordStats()
 {
     Word words[MAX_NO_OF_WORDS] = {{"", 0}};
@@ -195,6 +212,7 @@ void sdds::wordStats()
     totalWordsStat(NoOfWords, totalCount(words, NoOfWords), maxLen);
 }
 
+/* prints the program title */
 void sdds::programTitle()
 {
     std::cout << "This program reads a text file from the standard input and analyzes and reports" << std::endl
