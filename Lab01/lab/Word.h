@@ -9,6 +9,8 @@
 #ifndef SDDS_WORD_H
 #define SDDS_WORD_H
 
+#include "Utils.h"
+
 namespace sdds
 {
 	const int MAX_WORD_LEN = 21;
@@ -16,13 +18,15 @@ namespace sdds
 	const int SOFT_BY_OCCURANCE = 1;
 	const int SOFT_ALPHABETICALLY = 0;
 
+	Utils utils;
+
 	struct Word
 	{
-		char letter[MAX_WORD_LEN];
+		char letters[MAX_WORD_LEN];
 		int count;
 	};
 
-	int searchWords(const Word, int, const char[]);
+	int searchWords(const Word[], int, const char[]);
 	void addWord(Word[], int *, const char[]);
 	void title(const char *, int);
 	void endList();

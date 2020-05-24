@@ -9,7 +9,11 @@
             "command": "g++",
             "args": [
                 "-g",
-                "w1p1.cpp",
+                "WordStat.cpp",
+                "Word.cpp",
+                "Utils.cpp",
+                "-o",
+                "ws",
                 "-std=c++17",
                 "-Wall"
             ],

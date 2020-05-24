@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/a.out",
+            "program": "${workspaceFolder}/ws",
             "args": ["<", "FoxInSocks.txt"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
