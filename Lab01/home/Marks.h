@@ -14,7 +14,18 @@ namespace sdds
 	class Marks
 	{
 		private:
+			char* assessment_name{""};
+			int sorted_marks[];
+			double mark_average{0.0};
+			int num_passing{0};
+			int total_marks{0};
 		public:
+			Marks();
+			Marks(const char&, int);
+			~Marks();
+			int getNumMarks() const;
+			int getAverage() const;
+			void addMark(int);
 	};
 }
 
