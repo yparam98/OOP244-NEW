@@ -16,6 +16,10 @@ namespace sdds
 		private:
 
 		public:
+			Utils();
+			~Utils();
+			int str_size(const char*);
+			double calculate_average(int*, int);
 	};
 }
 
