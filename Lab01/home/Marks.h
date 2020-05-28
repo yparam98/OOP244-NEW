@@ -12,19 +12,13 @@
 #include <iostream>
 #include "Utils.h"
 
-inline void markstat()
-{
-	std::cout << "Mark Stats Program" << std::endl;
-	
-}
+void markstat();
 
 namespace sdds
 {
 	class Marks
 	{
 	private:
-		Utils utility;
-
 		char *assessment_name{nullptr};
 		int *marks_arr;
 		double mark_average{0.0};
@@ -41,6 +35,7 @@ namespace sdds
 		~Marks();
 		int getNumMarks() const;
 		double getAverage();
+		int getPassing();
 		char *getAssessmentName() const;
 		void addMark(int);
 		void displayMarks(std::ostream&) const;
