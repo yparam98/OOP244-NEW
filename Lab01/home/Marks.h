@@ -10,6 +10,9 @@
 #define SDDS_MARKS_H
 
 #include <iostream>
+#include <iomanip>
+#include <vector>
+#include <algorithm>
 #include "Utils.h"
 
 void markstat();
@@ -27,7 +30,7 @@ namespace sdds
 		int num_of_marks{0};
 		int num_of_marks_stored{0};
 
-		void sort_marks();
+		void calculate_passing();
 
 	public:
 		Marks();
@@ -38,7 +41,7 @@ namespace sdds
 		int getPassing();
 		char *getAssessmentName() const;
 		void addMark(int);
-		void displayMarks(std::ostream&) const;
+		void displayMarks(std::ostream &) const;
 	};
 	std::ostream &operator<<(std::ostream &, Marks &);
 } // namespace sdds

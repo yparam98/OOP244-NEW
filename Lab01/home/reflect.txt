@@ -1,0 +1,50 @@
+OOP244 Workshop 1 Reflection
+By: Yathavan Parameshwaran
+--------------------------------
+
+What I learned
+**************
+In terms of new concepts, this is my second time taking this course (after a lot of practice in the form of OOP345 and DSA555) so these concepts weren't exactly new to me. However it was a fun challenge getting back to the foundations of C++. I liked that the at-home portion of the workshop just gave us the output and left us to devise our own solutions. I also enjoyed designing an object oriented solution from scratch instead of following hard specifications.
+
+Problems I've encountered
+*************************
+I mostly had small problems like syntactical errors and confusions between '->' and '.' and pointers and references because it's been a long time since I've used C++, but once I got back into the groove it went alright. 
+
+The major issue I had with this workshop was figuring out how to make the markstat function work without putting it in the Markstat.cpp file. I went back to the OOP345 notes and read up on linkage and translation units to find out what the problem was. I first tried to use the "inline" keyword to put the function entirely in Marks.h, but then decided to use "extern" and put it in the Marks.cpp file.
+
+Namespaces
+**********
+
+What are they? They are regions (or scopes) used in your program to organize the code into smaller more manageable groups. This is useful when you are working on large applications with many developers, and you need to isolate each developer's code by function and usage to prevent confusion for both the compiler and yourself.
+
+How do you use them? 
+
+First, you define a namespace:
+
+namespace sict
+{
+
+}
+
+Second, you fill it with code:
+
+namespace sict
+{
+    void print_hello()
+    {
+        std::cout << "Hello, World!" << std::endl;
+    }
+}
+
+Third, you use it. You have two options:
+
+1)
+        using namespace sict;
+
+        print_hello();
+
+2)
+
+        sict::print_hello();
+
+I prefer to use option 2 because it reduces the amount of "prerequisite" stuff the compiler has to know about before running the program and isolates the usage of the namespace down to a specific entity.

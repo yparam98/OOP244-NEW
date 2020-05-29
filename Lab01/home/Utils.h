@@ -9,18 +9,21 @@
 #ifndef SDDS_UTILS_H
 #define SDDS_UTILS_H
 
-namespace sdds 
+namespace sdds
 {
 	class Utils
 	{
-		private:
+	private:
+		int validation_num{0};
 
-		public:
-			Utils();
-			~Utils();
-			int str_size(const char*);
-			double calculate_average(int*, int);
+	public:
+		Utils();
+		~Utils();
+		int str_size(const char *);
+		bool str_copy(char *, const char *);
+		double calculate_average(int *, int);
+		int is_valid(const char *);
 	};
-}
+} // namespace sdds
 
 #endif // SDDS_MARKS_H
