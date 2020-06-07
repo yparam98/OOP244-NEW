@@ -1,0 +1,17 @@
+/*******************************************/
+/*  Student:    Yathavan Parameshwaran     */
+/*  Student #:  070 692 140                */
+/*  Assignment: Workshop 2.1: reflect.txt  */
+/*  Course:     OOP244 (retake)            */
+/*  Professor:  Nathan Misener             */
+/*  Date:       June 3, 2020               */
+/*******************************************/
+
+Topics learned
+**************
+
+
+Difficulties Faced
+******************
+
+

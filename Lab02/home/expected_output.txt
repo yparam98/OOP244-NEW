@@ -1,0 +1,77 @@
+----------------------------------------
+|> T1: Checking Constants
+----------------------------------------
+MAX_DESC: 15
+MAX_PRICE: 999.999
+MAX_WRAP: 20
+
+----------------------------------------
+|> T2: Display Wrapped Gift
+----------------------------------------
+Enter gift description: Roses
+Enter gift price: 5.99
+Enter gift units: 5
+
+Gift Details:
+ Description: Roses
+       Price: 5.99
+       Units: 5
+Unwrapped!
+
+----------------------------------------
+|> T3: Wrap a gift
+----------------------------------------
+Wrapping gifts...
+Enter the number of wrapping layers for the Gift: -1
+Layers at minimum must be 1, try again.
+Enter the number of wrapping layers for the Gift: 0
+Layers at minimum must be 1, try again.
+Enter the number of wrapping layers for the Gift: 3
+Enter wrapping pattern #1: Spots
+Enter wrapping pattern #2: Stripes
+Enter wrapping pattern #3: Zigzags
+Test succeeded!
+
+----------------------------------------
+|> T4: Re-wrap a gift
+----------------------------------------
+Attempting to rewrap the previous Gift: Roses
+Gift is already wrapped!
+Test succeeded!
+
+----------------------------------------
+|> T5: Unwrap a gift
+----------------------------------------
+Attempting to unwrap the previous gift: Roses
+Gift being unwrapped.
+Test succeeded!
+
+----------------------------------------
+|> T6: Unwrap again
+----------------------------------------
+Attempting to un-unwrap the previous gift: Roses
+Gift isn't wrapped! Cannot unwrap.
+Test succeeded!
+
+----------------------------------------
+|> T7: Prepare another gift
+----------------------------------------
+Preparing a gift...
+Enter gift description: Hand-knit-scarf
+Enter gift price: 0
+Enter gift units: 1
+Wrapping gifts...
+Enter the number of wrapping layers for the Gift: 1
+Enter wrapping pattern #1: Hearts
+
+Gift Details:
+ Description: Hand-knit-scarf
+       Price: 0
+       Units: 1
+Wrap Layers: 1
+Wrap #1 -> Hearts
+
+----------------------------------------
+|> T8: Unwrap the second gift
+----------------------------------------
+Gift being unwrapped.
