@@ -14,6 +14,14 @@ namespace sdds
 {
     const int MAX_DESC{15};
     const double MAX_PRICE{999.999};
+    const int MAX_WRAP{20};
+
+    struct Wrapping
+    {
+        char *m_pattern{nullptr};
+
+        ~Wrapping();
+    };
 
     struct Gift
     {
@@ -21,13 +29,10 @@ namespace sdds
         double m_price{0.00};
         int m_units{0};
 
-        Wrapping *m_wrap;
-        int w_wrapLayers{sizeof(m_wrap)};
-    };
+        ~Gift();
 
-    struct Wrapping
-    {
-        char *m_pattern;
+        Wrapping *m_wrap{nullptr};
+        int m_wrapLayers{0};
     };
 
     void gifting(char *);

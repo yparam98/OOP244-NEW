@@ -7,11 +7,25 @@
 /*  Date:       June 3, 2020               */
 /*******************************************/
 
-Topics learned
+Topics Learned
 **************
 
+- when allocating memory for a string, make sure to allocate 1 extra byte for the nullbyte. the nullbyte is what terminates a cstyle string, and this will prevent the value of the string from "spilling" out.
+- to allocate memory for a pointer, follow the syntax: pointer = new type[size]
+- make sure to deallocate the memory once the program is nearing completion, as this is the main cause of memory leaks in your program
+- when working with dynamic memory, ALWAYS ALWAYS ALWAYS have a destructor. And have a copy constructor/assignment-operator for extra credit. The destructor is what deallocates the memory at the end of the program's scope, therefore that is what will prevent memory leaks as there will be nothing to leak if the pointer is properly deallocated of all memory
+- this is how you can deallocate memory:
+    if (pointer != nullptr) // first check to see if the pointer has been deallocated before
+    {
+        delete[] pointer; // free the previously allocated memory
+        pointer = nullptr; // set the pointer to nullptr
+    }
+- static memory lasts the lifetime of the application, no intervention is require to deallocate it
+- dynamic memory on the other hand is the problem child. this type of memory is all manual. you need to manually allocate it and manually deallocate it at the end of your program
 
 Difficulties Faced
 ******************
+
+the main issue i had in this workshop was dealing with the memory leaks. in my program, when i was allocating memory for the m_pattern pointer, i was allocating the memory to the size of the number of characters in the string that defined the wrapping paper pattern. once allocated the memory, i made sure to free it (or deallocate it) in the unwrap function that deals with the unwrapping of the gift of the program. during normal execution of the program, i didn't notice anything amiss because the program functioned perfectly and even matched the output. once i copied the files to the server to run the submitter, valgrind (a program that checks for any possible memory leaks), noticed that memory leaks were happening in the program. on my own PC, i re-ran valgrind with the option to check for leaks in more detail, and it revealed the leaks were all happening in the part of the code where i allocated memory for the m_pattern pointer. i didn't understand what the problem was because the program was running perfectly and everything was being deallocated properly. i then remembered something that my previous Professor, C. Szalwinsky, mentioned in OOP345, that whenever you work with dynamic memory, you must ALWAYS have a destructor to handle any lingering memory that hasn't been properly deallocated during the course of the program. after that i added a destructor to both the Gift and Wrapping modules and re-ran the program with Valgrind. The result was that all the memory has been freed properly and no memory leaks were possible as all the heap blocks were freed properly. 
 
 
