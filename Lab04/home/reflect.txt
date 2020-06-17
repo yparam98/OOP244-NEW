@@ -1,0 +1,194 @@
+/******************************************/
+/*  Student:    Yathavan Parameshwaran    */
+/*  Student #:  070 692 140               */
+/*  Assignment: Workshop 4.2: reflect.txt */
+/*  Course:     OOP244 (retake)           */
+/*  Professor:  Nathan Misener            */
+/*  Date:       June 17, 2020             */
+/******************************************/
+
+
+Summary of Notes
+****************
+
+    Constructors
+
+        - constructors are member functions that are associated with classes
+        - whenever you create an object, the constructor of that class is called
+        - there are two types of constructors:
+            - default constructor
+                - the default constructor is what is called by default at the creation of an object, hence its name
+                - the default constructor is ideal for setting your object to a "safe, empty state" prior to the execution of the program
+                    - this is done primarily for initialization purposes. You always want to start a program with data members initialized to states such as 0, nullptr, or '\0'
+                    - this is good because it can help prevent undefined behavior during validity or sanity checks in the program
+                - even if we don't specifically define a default constructor in the class, the compiler will automatically "insert" one in our class
+                    - NOTE: the compiler will NOT insert a default constructor if there is already a constructor there (default or overloaded)
+            - overloaded constructor
+                - this type of constructor is best for initializing your object with values prior to the usage of the object
+                - you would usually "overload" the default constructor with types you want to pass into the object during creation-time
+        - you can also use constructor initializer lists to initialize "const" (immutable) objects during creation time
+        - no constructors have a return type; meaning you don't need to specify a return type during declaration
+
+        - example
+
+            class Car
+            {
+                private:
+                    const int random_const_var{1};
+                    int year{0};
+                    char* make{nullptr};
+                    char* model{nullptr};
+                    bool registered{false};
+                public:
+                    Car() : random_const_var{2}
+                    {
+                        // this is the default constructor
+                        // note the constructor initializer list above that initializes the immutable data member
+                        // best used for initializing data members to a safe empty state
+
+                        this->year = 0;
+                        this->make = nullptr;
+                        this->model = nullptr;
+                        registered = false;
+                    }
+                    ~Car()
+                    {
+                        // this is the destructor
+                        // deallocate (free) any previously allocated memory to prevent memory leaks
+
+                        delete[] this->make;
+                        delete[] this->model;
+
+                        this->make = nullptr;
+                        this->model = nullptr;
+                    }
+                    Car(int year, const char* make, const char* model, bool registered = false)
+                    {
+                        // this is the overloaded constructor   
+                        // best used for initializing objects with values at creation time
+
+                        this->year = year;
+
+                        this->make = new char[std::strlen(make) + 1];
+                        std::strncpy(this->make, make, std::strlen(make));
+                        this->make[strlen(make)] = '\0';
+
+                        this->model = new char[std::strlen(model) + 1];
+                        std::strncpy(this->model, model, std::strlen(model));
+                        this->model[strlen(model)] = '\0';
+                    }
+                    void display() const
+                    {
+                        std::cout << this->year << " " << this->make << " " << this->model << std::endl;
+                    }
+            };
+
+            int main ()
+            {
+                Car my_car(2018, "Toyota", "Camry");
+                Car your_car;
+
+                my_car.display();
+                your_car.display(); // program will crash here because you are trying to print a nullptr...
+            }
+
+    
+    
+    The current object
+
+        - the current object is exactly what it sounds like: the CURRENT object
+        - whenever you access a data member from within the class, you are accessing it from the CURRENT object
+        - you can think of it as this:
+            - the current object hosts the members
+            - CURRENT OBJECT
+                |    |    |
+                V    V    V
+               CLASS MEMBERS
+        - to access the current object, you can use the "this" keyword
+        - the "this" keyword is essentially a pointer to the current object. Meaning it holds the address of the current object.
+        - with the "this" keyword, you can access the current object's data members 
+            - note: "this" is a pointer. so you can't use '.' to access the members. Instead, you must use '->'...
+        - because "this" is a pointer to the CURRENT object, you can only use it inside members functions of the CURRENT object.
+            - in less confusing terms, it is only viable (or possible, even) to use "this" inside the member function of the object
+        - in addition to using "this" to access an object's data members, you can use "this" to refer to the current object itself
+            - you can do that by prefixing the dereference operator in-front of the "this" keyword: "*this"
+                - what you are doing is essentially "dereferencing" the "this" pointer. Same as you would do with any other pointer in C/C++...
+
+        
+        - example (i'm just going to reuse the previous example...)
+
+            - in this example:
+                - you can see that I am using "this" to access the data members of the current object at all times
+                - I am only using the "this" keyword inside the member functions, because that is the only place and way it will work
+                - now, you don't NEED to use the "this" keyword whenever you refer to data members of the object, but trust me when I say that it is an easy way to prevent undefined behavior in the program, and very severe migraines for yourself during debugging sessions
+            
+            class Car
+            {
+                private:
+                    const int random_const_var{1};
+                    int year{0};
+                    char* make{nullptr};
+                    char* model{nullptr};
+                    bool registered{false};
+                public:
+                    Car() : random_const_var{2}
+                    {
+                        this->year = 0;
+                        this->make = nullptr;
+                        this->model = nullptr;
+                        registered = false;
+                    }
+                    ~Car()
+                    {
+                        delete[] this->make;
+                        delete[] this->model;
+
+                        this->make = nullptr;
+                        this->model = nullptr;
+                    }
+                    Car(int year, const char* make, const char* model, bool registered = false)
+                    {
+                        this->year = year;
+
+                        this->make = new char[std::strlen(make) + 1];
+                        std::strncpy(this->make, make, std::strlen(make));
+                        this->make[strlen(make)] = '\0';
+
+                        this->model = new char[std::strlen(model) + 1];
+                        std::strncpy(this->model, model, std::strlen(model));
+                        this->model[strlen(model)] = '\0';
+                    }
+                    void display() const
+                    {
+                        std::cout << this->year << " " << this->make << " " << this->model << std::endl;
+                    }
+            };
+
+            int main ()
+            {
+                Car my_car(2018, "Toyota", "Camry");
+                Car your_car;
+
+                my_car.display();
+                your_car.display(); // program will crash here because you are trying to print a nullptr...
+            }
+
+
+
+Comments regarding the Workshop
+*******************************
+
+    - overall the workshop was pretty easy. 
+    - it bore similarity to the Workshop 7 of OOP244 a couple of semesters ago, which was about Heros/Superheroes battling it out
+    - the in-lab portion was pretty straightforward
+        - except (accidentally) instead of using statically allocated arrays as specified in the instructions, I used dynamically allocated pointers to store the name of the Saiyans
+    - the at-home portion was where it got a little tricky:
+        - after making the required changes to the in-lab portion of the program, I kept getting memory leaks in the program that I wasn't getting before, which was surprising because I used dynamically allocated pointers in the in-lab portion where everything compiled perfectly (I checked using Valgrind)
+        - after trying to force deallocation of the memory in the display() method (Invalid free() errors occured), and testing allocation at different points in the program, I found the bug that I missed earlier
+        - in the in-lab portion, the main.cpp file didn't "reuse" objects. It created an object, used the set() method to add data, then deallocated it
+        - however, in the at-home portion, the main.cpp file creates an object, uses set() to add data, print it, and then calls set() AGAIN to add new data to it
+        - so what happens is that the memory I allocated for the m_name pointer from the first time set() was called never got deallocated, because the object didn't reach the end of it's scope by the time set() was called again. 
+        - see, the destructor is called at the end of an object's scope, never before. So what happened was that I allocated fresh memory for a pointer that never deallocated its previously allocated memory because I assumed that only fresh objects with safe empty states will be calling the set() function. 
+        - This is why valgrind kept saying "7 allocs, 5 frees". The 2 missing frees was when the objects "s1" and "s2" were REUSED, instead of properly dying (deallocating) and then created again.
+        - to resolve this, I checked to see if the current object's m_name data member was truly empty. If it wasn't, then that would mean that the object is being reused, hence having previously allocated memory. 
+        - if it wasn't empty, then the program will deallocate (free) the previously allocated memory before allocating fresh memory for the pointer.

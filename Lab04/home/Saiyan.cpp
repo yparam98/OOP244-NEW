@@ -1,7 +1,7 @@
 /*****************************************/
 /*  Student:    Yathavan Parameshwaran   */
 /*  Student #:  070 692 140              */
-/*  Assignment: Workshop 4.1: Saiyan.cpp */
+/*  Assignment: Workshop 4.2: Saiyan.cpp */
 /*  Course:     OOP244 (retake)          */
 /*  Professor:  Nathan Misener           */
 /*  Date:       June 17, 2020            */
