@@ -1,0 +1,37 @@
+----------------------------------------
+|> T1: Checking default constructor
+----------------------------------------
+Invalid Saiyan!
+
+----------------------------------------
+|> T2: Checking custom constructor
+----------------------------------------
+Only #2 should be valid:
+  Sayan #0: invalid
+  Sayan #1: invalid
+  Sayan #2: valid
+  Sayan #3: invalid
+  Sayan #4: invalid
+Invalid Saiyan!
+Invalid Saiyan!
+Goku
+DOB: 1990
+Power: 200
+Super: no
+Invalid Saiyan!
+Invalid Saiyan!
+
+----------------------------------------
+|> T3: Checking the fight
+----------------------------------------
+Goku
+DOB: 1990
+Power: 2000
+Super: no
+Vegeta
+DOB: 1989
+Power: 2200
+Super: no
+S1 attacking S2, Battle Lost
+S2 attacking S1, Battle Won
+

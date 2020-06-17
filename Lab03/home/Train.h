@@ -33,7 +33,7 @@ namespace sdds
 		void unloadCargo();
 		void display() const;
 
-		bool swapCargo(Train&);
+		bool swapCargo(Train &);
 		bool increaseCargo(double);
 		bool decreaseCargo(double);
 	};

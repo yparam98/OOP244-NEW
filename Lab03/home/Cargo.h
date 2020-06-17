@@ -21,14 +21,15 @@ namespace sdds
 	private:
 		char description[MAX_DESC];
 		double weight{0.0};
+
 	public:
 		Cargo();
 		~Cargo();
 
-		void initialize(const char*, double);
-		const char* getDesc() const;
+		void initialize(const char *, double);
+		const char *getDesc() const;
 		double getWeight() const;
-		void setDesc(const char*);
+		void setDesc(const char *);
 		void setWeight(double);
 	};
 

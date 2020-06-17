@@ -21,11 +21,13 @@ namespace sdds
         this->train_id = 0;
         this->train_cargo = nullptr;
     }
+
     Train::~Train()
     {
         delete[] this->train_cargo;
         this->train_cargo = nullptr;
     }
+
     void Train::initialize(const char *name, int id)
     {
         if (name == nullptr || id <= 0)
@@ -43,6 +45,7 @@ namespace sdds
             this->train_cargo = nullptr;
         }
     }
+
     bool Train::isValid() const
     {
         if (this->train_id <= 0 || this->train_name[0] == '\0')
@@ -54,24 +57,27 @@ namespace sdds
             return true;
         }
     }
+
     void Train::loadCargo(Cargo car)
     {
-        if (this->train_cargo == nullptr)
-        {
-            this->train_cargo = new Cargo[1];
-            this->train_cargo[0].setDesc(car.getDesc());
-            this->train_cargo[0].setWeight(car.getWeight());
-        }
+        this->unloadCargo();
+        
+        this->train_cargo = new Cargo[1];
+        this->train_cargo[0].setDesc(car.getDesc());
+        this->train_cargo[0].setWeight(car.getWeight());
     }
+
     void Train::unloadCargo()
     {
-        delete[] this->train_cargo;
-        this->train_cargo = nullptr;
+        if (this->train_cargo != nullptr)
+        {
+            delete[] this->train_cargo;
+            this->train_cargo = nullptr;
+        }
     }
+
     void Train::display() const
     {
-        std::cout.precision(3);
-
         if (!this->isValid())
         {
             std::cout << "***Train Summary***" << std::endl;
@@ -97,10 +103,11 @@ namespace sdds
                 std::cout << this->train_cargo[0].getDesc() << std::endl;
 
                 std::cout << std::setw(8) << std::right << "Weight: ";
-                std::cout << this->train_cargo[0].getWeight() << std::endl;
+                std::cout << std::fixed << std::setprecision(2) << this->train_cargo[0].getWeight() << std::endl;
             }
         }
     }
+
     bool Train::swapCargo(Train &other)
     {
         if (this->isValid() && other.isValid() && other.train_cargo != nullptr)
@@ -115,41 +122,75 @@ namespace sdds
             return false;
         }
     }
+
     bool Train::increaseCargo(double weight)
     {
-        /* increases the carried cargo by weight tonnes only if the current train is valid, 
-        carries valid cargo and the new weight doesn’t exceed MAX_WEIGHT. If the new cargo 
-        exceeds the capcity, do not accept more than capacity. Return true if a change has 
-        been made, false otherwise */
+        /*
+             increases the carried cargo by weight tonnes only if the current train is valid, 
+             carries valid cargo and the new weight doesn’t exceed MAX_WEIGHT. If the new cargo 
+             exceeds the capcity, do not accept more than capacity. Return true if a change has 
+             been made, false otherwise.
+        */
+
+        bool increased = false;
 
         if (this->isValid())
         {
             if (this->train_cargo != nullptr)
             {
-                if (weight <= MAX_WEIGHT)
+                if (weight < MAX_WEIGHT)
                 {
                     this->train_cargo[0].setWeight(weight);
-                    return true;
+                    increased = true;
                 }
+                else if (weight > MAX_WEIGHT)
+                {
+                    if (this->train_cargo[0].getWeight() != MAX_WEIGHT)
+                    {
+                        this->train_cargo[0].setWeight(MAX_WEIGHT);
+                        increased = true;
+                    }
+                }
+                
             }
         }
 
-        return false;
+        return increased;
     }
+
     bool Train::decreaseCargo(double weight)
     {
+        /*
+            decreases the carried cargo by weight tonnes only if the current train is valid, 
+            carries valid cargo and the new weight is not less than MIN_WEIGHT. If the new 
+            cargo is below the lower limit, do not go below the lower limit. Return true if 
+            a change has been made, false otherwise.
+        */
+
+        bool decreased = false;
+
         if (this->isValid())
         {
             if (this->train_cargo != nullptr)
             {
-                if (weight >= MIN_WEIGHT)
+                if (weight > MIN_WEIGHT)
                 {
                     this->train_cargo[0].setWeight(weight);
-                    return true;
+                    decreased = true;
                 }
+                else if (weight < MIN_WEIGHT)
+                {
+                    if (this->train_cargo[0].getWeight() != MIN_WEIGHT)
+                    {
+                        this->train_cargo[0].setWeight(MIN_WEIGHT);
+                        decreased = true;
+                    }
+                }
+                
             }
         }
 
-        return false;
+
+        return decreased;
     }
 } // namespace sdds
