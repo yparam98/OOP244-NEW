@@ -1,0 +1,44 @@
+----------------------------------------
+|> T1: Testing Constants
+----------------------------------------
+TYPE_MAX_SIZE: 30
+MIN_STD_POWER: 90.111
+MAX_STD_POWER: 99.999
+
+----------------------------------------
+|> T2: Testing Default Constructor
+----------------------------------------
+No available data
+The object is not valid! Engine cannot be added!
+
+----------------------------------------
+|> T3: Testing Custom Constructor
+----------------------------------------
+cruiser - 128.5
+4.4 liters - V8
+5 liters - V8
+4.1 liters - Inline
+7 liters - D3
+2 liters - D0
+3.2 liters - D1
+
+----------------------------------------
+|> T4: Testing Conversion to Bool Operator
+----------------------------------------
+1. Test succeeded!
+2. Test succeeded!
+
+----------------------------------------
+|> T5: Testing += and < Operators
+----------------------------------------
+Ship not up to standard. Required power: 90.111
+Ship not up to standard. Required power: 90.111
+Ship not up to standard. Required power: 90.111
+liner - 99
+4.4 liters - V8
+5 liters - V8
+4.1 liters - Inline
+2.1 liters - D1
+2.1 liters - D2
+2.1 liters - D3
+Ship doesn't exceed power regulation of: 99.999
