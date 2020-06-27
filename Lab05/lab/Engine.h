@@ -1,3 +1,12 @@
+/*****************************************/
+/*  Student:    Yathavan Parameshwaran   */
+/*  Student #:  070 692 140              */
+/*  Assignment: Workshop 5.1: Engine.h   */
+/*  Course:     OOP244 (retake)          */
+/*  Professor:  Nathan Misener           */
+/*  Date:       June 26, 2020            */
+/*****************************************/
+
 #ifndef SDDS_ENGINE_H
 #define SDDS_ENGINE_H
 
