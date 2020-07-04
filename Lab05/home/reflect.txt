@@ -1,0 +1,32 @@
+/******************************************/
+/*  Student:    Yathavan Parameshwaran    */
+/*  Student #:  070 692 140               */
+/*  Assignment: Workshop 5.2: reflect.txt */
+/*  Course:     OOP244 (retake)           */
+/*  Professor:  Nathan Misener            */
+/*  Date:       June 28, 2020             */
+/******************************************/
+
+
+Questions as required by specifications
+***************************************
+
+Q: What would happen if the keyword "explicit" is removed
+
+A:
+
+
+Q: Why couldn't the `bool operator<(double power, const Ship& theShip)` couldn't be a member of the class
+
+A:
+
+
+
+
+
+
+
+
+
+Thoughts on the Workshop
+************************
