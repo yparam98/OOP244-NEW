@@ -13,20 +13,22 @@ Questions as required by specifications
 
 Q: What would happen if the keyword "explicit" is removed
 
-A:
+A: The "explicit" keyword is used to let the compiler know NOT to convert the types and to prevent copying or copy/initialization. In this scenario, the explicit keyword is attached to the bool() operator function. This overload gets called whenever you are doing a comparison with the Ship object, like `(something <= shipObject)`. The explicit keyword in this case will prevent you from assigning the value returned from the bool() operator overload to another variable, like `bool is_true = titanic` will be illegal, as copy-initialization is not allowed when using the explicit keyword. This is because behind the scenes in C++, a bool is just a value of either 1 or 0. And because of the no-conversion rule, the bool returned from the overload cannot be converted into a 1 or 0, which would be an integer. However, to work around this would be to use a static cast, and cast the 1 or 0 into a bool value to assign it. Like this: `bool is_true = static_cast<bool>(titanic);` But other than that, the only thing that you can do with this bool() overload is to use it for comparison only, and nothing else.
 
 
-Q: Why couldn't the `bool operator<(double power, const Ship& theShip)` couldn't be a member of the class
+Q: Why couldn't the `bool operator<(double power, const Ship& theShip)` be a member of the class
 
-A:
+A: It technically is, but not in the traditional sense. The `friend` keyword can be explained in an analogy: 
 
+Let's say I have a friend named Bob. Bob lives across the hall from me and occasionally comes in and eats the food in my fridge. I have previously told him that he can come in and eat whatever as long as he doesn't finish it off completely. Now, I could let Bob stay at my place permanently which would also allow him to eat my food, but I already have 2 dogs and I don't want to overfill my place. 
 
+So what have I done here? One, I have labeled Bob as my "friend". As my "friend" he can have access to my private food. I did this to let him eat my food and to prevent him from sleeping on my couch. 
 
-
-
-
+This same analogy can be applied to the Ship class. I have labeled the operator< as a "friend", therefore it can have access to the Ship class' private data members. I did this so I wouldn't need to overflow my Ship class with the operator<. That is also why there are two arguments passed into the operator<, `power` and `theShip`. If this were not a friend function, then only one argument would've been allowed to be passed in.
 
 
 
 Thoughts on the Workshop
 ************************
+
+Overall, this workshop was the most challenging. The primary difficulty stemmed from Part 2 of this workshop, where I kept getting segmentation faults in the `get()` query of the Engine class. At the beginning, it made no sense to me on how a simple query could yield an error when I am checking the existence of the value before querying anything of it. Eventually, I used the call stack tracer to find out what is calling the `get()` and what was done before it. I traced the problem back to the `operator+=` overload of the Ship class, where we were getting an argument to add to the Engine array. In this function, I was copying over the old values to a backup Engine array, deallocating the previously allocated memory, allocating new memory with enough space for one more engine, copying over the old values back into the new pointer, and adding on the new Engine to the end of the array. The error was that I forgot how arrays were counted. Instead of doing `engine_arr[engCnt - 1] = new_engine` I was doing `engine_arr[engCnt] = new_engine`. See, if I had 4 engines, and I needed to add one more to make it 5; I would copy the old values to a temporary array, deallocate the pointer, reallocate for 5 slots, copy over the previous 4 engines, and add the new engine to the 5th slot. And remember, for an array of 5 slots, it is counted as 0 1 2 3 4, not 1 2 3 4 5. So I was filling up positions 0, 1, 2, and 3 with the old data of 4 engines, and because I incremented engCnt from 4 to 5, I was trying to put the new Engine object into position engCnt (5) of the array. So because there is no 5th position of the array, the object wasn't even getting copied over. I fixed that by changing the code to `engine_arr[engCnt - 1] = new_engine`, where the 4th position of the array (actually the 5th) will get the new Engine. The the `get()` wasn't working because the validation code I had put in was trying to see if the non-existant double value was greater than 0, and the segmentation error kept coming up because I was trying to check something from an object that didn't even exist. After I fixed all these bugs, I re-compiled and ran it again and it worked fine. 
