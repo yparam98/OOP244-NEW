@@ -1,3 +1,12 @@
+/******************************************/
+/*  Student:    Yathavan Parameshwaran    */
+/*  Student #:  070 692 140               */
+/*  Assignment: Workshop 6.1: Basket.h    */
+/*  Course:     OOP244 (retake)           */
+/*  Professor:  Andrei Sajeniouk          */
+/*  Date:       July 07, 2020             */
+/******************************************/
+
 #ifndef SDDS_BASKET_H
 #define SDDS_BASKET_H
 
@@ -25,7 +34,7 @@ namespace sdds
         Basket &operator+=(Fruit);
 
         friend std::ostream &operator<<(std::ostream &, Basket &);
-    };    
+    };
 } // namespace sdds
 
 #endif // SDDS_BASKET_H

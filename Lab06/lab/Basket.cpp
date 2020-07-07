@@ -1,3 +1,12 @@
+/******************************************/
+/*  Student:    Yathavan Parameshwaran    */
+/*  Student #:  070 692 140               */
+/*  Assignment: Workshop 6.1: Basket.cpp  */
+/*  Course:     OOP244 (retake)           */
+/*  Professor:  Andrei Sajeniouk          */
+/*  Date:       July 07, 2020             */
+/******************************************/
+
 #include <iostream>
 #include "Basket.h"
 
@@ -7,6 +16,7 @@
 
 namespace sdds
 {
+    /* default constructor: sets object to empty state */
     Basket::Basket()
     {
         this->m_fruits = nullptr;
@@ -14,6 +24,7 @@ namespace sdds
         this->m_price = 0.0;
     }
 
+    /* destructor: deallocates any previously allocated memory */
     Basket::~Basket()
     {
         if (this->m_fruits != nullptr)
@@ -23,6 +34,7 @@ namespace sdds
         }
     }
 
+    /* 3-arg constructor: used to initialize current object with values at creation time */
     Basket::Basket(Fruit incoming_fruits_array[], int incoming_count, double incoming_price)
     {
         if (incoming_fruits_array[0].m_name[0] != '\0' && incoming_count != 0 && incoming_price != 0.0)
@@ -43,12 +55,14 @@ namespace sdds
         }
     }
 
+    /* copy constructor */
     Basket::Basket(const Basket &incoming_obj)
     {
         this->m_fruits = nullptr;
         *this = incoming_obj;
     }
 
+    /* copy assignment operator */
     Basket &Basket::operator=(const Basket &incoming_obj)
     {
         if (this != &incoming_obj)
@@ -76,16 +90,19 @@ namespace sdds
         return *this;
     }
 
+    /* setPrice function: sets the price of the basket to the incoming value */
     void Basket::setPrice(double incoming_price)
     {
         this->m_price = incoming_price;
     }
 
-    explicit Basket::operator bool() const
+    /* boolean conversion operator: returns true if basket contains any Fruit */
+    Basket::operator bool() const
     {
         return this->m_cnt >= 1;
     }
 
+    /* += operator overload: adds an incoming fruit to the basket */
     Basket &Basket::operator+=(Fruit incoming_obj)
     {
         // create temporary array
@@ -105,6 +122,7 @@ namespace sdds
 
         // deallocate previously allocated memory for fruits
         delete[] this->m_fruits;
+        this->m_fruits = nullptr;
 
         // reallocate new memory with incremented fruit count
         this->m_fruits = new Fruit[this->m_cnt];
@@ -119,14 +137,16 @@ namespace sdds
         }
 
         // append the new fruit object to the array
-        std::strncpy(this->m_fruits[m_cnt].m_name, incoming_obj.m_name, NAME_SIZE);
-        this->m_fruits[m_cnt].m_name[NAME_SIZE + 1] = '\0';
+        std::strncpy(this->m_fruits[m_cnt - 1].m_name, incoming_obj.m_name, NAME_SIZE);
+        this->m_fruits[m_cnt - 1].m_name[NAME_SIZE + 1] = '\0';
 
-        this->m_fruits[m_cnt].m_qty = incoming_obj.m_qty;
+        this->m_fruits[m_cnt - 1].m_qty = incoming_obj.m_qty;
 
         // fin
+        return *this;
     }
 
+    /* output stream operator overload: prints incoming Basket object to console */
     std::ostream &operator<<(std::ostream &incoming_ostream_obj, Basket &incoming_basket_obj)
     {
         if (incoming_basket_obj.m_cnt > 0)
@@ -146,5 +166,7 @@ namespace sdds
         {
             incoming_ostream_obj << "The basket is empty!" << std::endl;
         }
+
+        return incoming_ostream_obj;
     }
 } // namespace sdds
