@@ -1,7 +1,7 @@
 /******************************************/
 /*  Student:    Yathavan Parameshwaran    */
 /*  Student #:  070 692 140               */
-/*  Assignment: Workshop 6.1: reflect.txt */
+/*  Assignment: Workshop 6.2: reflect.txt */
 /*  Course:     OOP244 (retake)           */
 /*  Professor:  Andrei Sajeniouk          */
 /*  Date:       July 07, 2020             */
