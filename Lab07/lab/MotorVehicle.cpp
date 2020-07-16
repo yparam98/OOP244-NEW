@@ -1,3 +1,12 @@
+/************************************************/
+/*  Student:    Yathavan Parameshwaran          */
+/*  Student #:  070 692 140                     */
+/*  Assignment: Workshop 7.1: MotorVehicle.cpp  */
+/*  Course:     OOP244 (retake)                 */
+/*  Professor:  Andrei Sajeniouk                */
+/*  Date:       July 15, 2020                   */
+/************************************************/
+
 #include <iostream>
 #include <cstring>
 #include <iomanip>
@@ -13,7 +22,7 @@ namespace sdds
 		this->vehicle_build_year = 0;
 	}
 
-	MotorVehicle::MotorVehicle(const char *incoming_license_plate, int incoming_year, const char* incoming_addr)
+	MotorVehicle::MotorVehicle(const char *incoming_license_plate, int incoming_year, const char *incoming_addr)
 	{
 		// assuming valid data is passed in as per professor specifications
 		int license_plate_size = std::strlen(incoming_license_plate) <= LICENSE_PLATE_SIZE ? std::strlen(incoming_license_plate) : LICENSE_PLATE_SIZE;
@@ -33,7 +42,8 @@ namespace sdds
 		if (std::strncmp(this->current_address, address, ADDRESS_SIZE) != 0)
 		{
 			std::cout << "|";
-			std::cout << std::setw(10) << std::right << this->license_plate_number << "|";
+			std::cout << std::setw(10) << std::right << this->license_plate_number << "| ";
+			std::cout << "|";
 			std::cout << std::setw(20) << std::right << this->current_address << " --->--- ";
 			std::cout << std::setw(20) << std::left << address;
 			std::cout << "|" << std::endl;

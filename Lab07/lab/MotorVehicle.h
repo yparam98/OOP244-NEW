@@ -1,3 +1,12 @@
+/************************************************/
+/*  Student:    Yathavan Parameshwaran          */
+/*  Student #:  070 692 140                     */
+/*  Assignment: Workshop 7.1: MotorVehicle.h    */
+/*  Course:     OOP244 (retake)                 */
+/*  Professor:  Andrei Sajeniouk                */
+/*  Date:       July 15, 2020                   */
+/************************************************/
+
 #ifndef SDDS_MOTORVEHICLE_H
 #define SDDS_MOTORVEHICLE_H
 
@@ -15,7 +24,7 @@ namespace sdds
 
 	public:
 		MotorVehicle();
-		MotorVehicle(const char *, int, const char* = "Factory");
+		MotorVehicle(const char *, int, const char * = "Factory");
 		void moveTo(const char *);
 		std::ostream &write(std::ostream &) const;
 		std::istream &read(std::istream &);

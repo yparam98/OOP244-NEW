@@ -1,3 +1,12 @@
+/************************************************/
+/*  Student:    Yathavan Parameshwaran          */
+/*  Student #:  070 692 140                     */
+/*  Assignment: Workshop 7.1: Truck.h           */
+/*  Course:     OOP244 (retake)                 */
+/*  Professor:  Andrei Sajeniouk                */
+/*  Date:       July 15, 2020                   */
+/************************************************/
+
 #ifndef SDDS_TRUCK_H
 #define SDDS_TRUCK_H
 

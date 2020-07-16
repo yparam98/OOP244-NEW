@@ -1,3 +1,12 @@
+/************************************************/
+/*  Student:    Yathavan Parameshwaran          */
+/*  Student #:  070 692 140                     */
+/*  Assignment: Workshop 7.1: Truck.cpp         */
+/*  Course:     OOP244 (retake)                 */
+/*  Professor:  Andrei Sajeniouk                */
+/*  Date:       July 15, 2020                   */
+/************************************************/
+
 #include <iostream>
 #include "Truck.h"
 
@@ -11,15 +20,24 @@ namespace sdds
 
     Truck::Truck(const char *license_plate, int year, double capacity, const char *address) : MotorVehicle(license_plate, year)
     {
-        this->current_capacity = 0.0;
+        this->maximum_capacity = capacity;
         this->moveTo(address);
     }
 
     bool Truck::addCargo(double cargo)
     {
-        if (cargo < maximum_capacity)
+        if (this->current_capacity == this->maximum_capacity)
+        {
+            return false;
+        }
+        else if ((this->current_capacity + cargo) <= this->maximum_capacity)
         {
             this->current_capacity += cargo;
+            return true;
+        }
+        else if ((this->current_capacity + cargo) > this->maximum_capacity)
+        {
+            this->current_capacity = this->maximum_capacity;
             return true;
         }
         else
@@ -44,7 +62,7 @@ namespace sdds
     std::ostream &Truck::write(std::ostream &os) const
     {
         MotorVehicle::write(os);
-        os << " | " << this->current_capacity;
+        os << " | " << this->current_capacity << "/" << this->maximum_capacity;
 
         return os;
     }
@@ -53,6 +71,10 @@ namespace sdds
     {
         MotorVehicle::read(is);
         std::cout << "Capacity: ";
+        is >> this->maximum_capacity;
+        is.ignore(1000, '\n');
+
+        std::cout << "Cargo: ";
         is >> this->current_capacity;
 
         return is;
