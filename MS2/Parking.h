@@ -1,3 +1,12 @@
+/*************************************************/
+/*  Student:    Yathavan Parameshwaran           */
+/*  Student #:  070 692 140                      */
+/*  Assignment: Final Project: MS2: Parking.h    */
+/*  Course:     OOP244 (retake)                  */
+/*  Professor:  Andrei Sajeniouk                 */
+/*  Date:       July 17, 2020                    */
+/*************************************************/
+
 #ifndef SDDS_PARKING_H
 #define SDDS_PARKING_H
 
@@ -10,8 +19,8 @@ namespace sdds
     private:
         char *file_name{nullptr};
         int indentation{0};
-        Menu parking_menu;
-        Menu vehicle_selection_menu;
+        Menu parking_menu{Menu()};
+        Menu vehicle_selection_menu{Menu()};
 
         bool isEmpty() const;
         void status() const;
@@ -23,12 +32,15 @@ namespace sdds
         bool load_data_file();
         void save_data_file() const;
 
+        void set_invalid();
+
     public:
         Parking();
+        Parking(const char *);
         ~Parking();
 
-        Parking(const Parking &);
-        Parking &operator=(const Parking &);
+        Parking(const Parking &) = delete;
+        Parking &operator=(const Parking &) = delete;
 
         int run();
     };

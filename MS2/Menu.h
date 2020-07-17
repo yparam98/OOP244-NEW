@@ -10,6 +10,11 @@
 #ifndef SDDS_MENU_H
 #define SDDS_MENU_H
 
+#include <iostream>
+#include <cstring>
+#include <iomanip>
+#include <limits>
+
 namespace sdds
 {
     const int MAX_NO_OF_ITEMS{10};
