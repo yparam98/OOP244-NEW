@@ -133,7 +133,7 @@ Inheritence
 
     ```
 
-    And a derived class called 'PremiumCar', which inherits only the protected members of RentalVehicle:
+    And a derived class called 'PremiumCar', which inherits only the private members of RentalVehicle (in other words, all the members):
 
     ```cpp 
 
