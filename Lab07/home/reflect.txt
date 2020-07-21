@@ -1,0 +1,262 @@
+/************************************************/
+/*  Student:    Yathavan Parameshwaran          */
+/*  Student #:  070 692 140                     */
+/*  Assignment: Workshop 7.2: reflect.txt       */
+/*  Course:     OOP244 (retake)                 */
+/*  Professor:  Andrei Sajeniouk                */
+/*  Date:       July 19, 2020                   */
+/************************************************/
+
+Summary of Notes
+****************
+
+Inheritence
+
+    Interitence is a cornerstone of object oriented programming. Inheritence greatly simplified object oriented programming by allowing classes to be "reusable". This is done by creating a form of "structural relationships" between classes. The relationship can be thought of as a parent-child relationship. The child inherits certain "traits" from the parent. Now, in programming terms, this means that the child class can inherit certain things from the parent class; and the things it can inherit can be controlled by an access specifier. 
+
+    Another word for parent can be "base", and child can also be called "derived". Inheritance is great because when you are designing complex applications using object oriented programming and have multiple objects with similarities, you can have one dedicated class to define the same structure for the multiple objects, then smaller more lightweight classes that contain the specific data members/methods required for each individual object. 
+
+    In this example, I have a base class called RentalVehicle which defines the basic structure shared across all vehicles of the rental car business. And PremiumCar which is a type of car with more "premium" features.
+    
+    Now, let me explain inheritence using some code examples:
+
+    Let's say I have a base class called 'RentalVehicle':
+
+    ```cpp
+
+    class RentalVehicle
+    {
+        private:            
+            char* make{nullptr};
+            char* model{nullptr};            
+        protected:
+            int year_of_make{0};
+        public:
+            RentalVehicle()
+            {
+                this->year = 0;
+                this->make = nullptr;
+                this->model = nullptr;
+            }
+            ~RentalVehicle()
+            {
+                if (this->make != nullptr)
+                {
+                    delete[] this->make;
+                    this->make = nullptr;
+                }
+
+                if (this->model != nullptr)
+                {
+                    delete[] this->model;
+                    this->model = nullptr;
+                }
+            }
+
+            RentalVehicle(int year, const char* make, const char* model)
+            {
+                this->year = year;
+
+                this->make = new char[std::strlen(make) + 1];
+                std::strncpy(this->make, make, std::strlen(make));
+                this->make[std::strlen(make)] = '\0';
+
+                this->model = new char[std::strlen(model) + 1];
+                std::strncpy(this->model, model, std::strlen(model));
+                this->model[std::strlen(model)] = '\0';
+            }
+
+            RentalVehicle(const RentalVehicle& incoming_vehicle)
+            {
+                this->make = nullptr;
+                this->model = nullptr;
+
+                *this = incoming_vehicle;
+            }
+
+            RentalVehicle& operator=(const RentalVehicle& incoming_vehicle)
+            {
+                if (this != &incoming_vehicle)
+                {
+                    this->year = incoming_vehicle.year;
+
+                    if (this->make != nullptr)
+                    {
+                        delete[] this->make;
+                        this->make = nullptr;
+                    }    
+
+                    this->make = new char[std::strlen(incoming_vehicle.make) + 1];
+                    std::strncpy(this->make, incoming_vehicle.make, std::strlen(incoming_vehicle.make));
+                    this->make[std::strlen(incoming_vehicle.make)] = '\0';
+
+                    if (this->model != nullptr)
+                    {
+                        delete[] this->model;
+                        this->model = nullptr;
+                    }
+
+                    this->model = new char[std::strlen(incoming_vehicle.model) + 1];
+                    std::strncpy(this->model, incoming_vehicle.model, std::strlen(incoming_vehicle.model));
+                    this->model[std::strlen(incoming_vehicle.model)] = '\0';
+                }
+
+                return *this;
+            }
+
+            int get_year() const
+            {
+                return this->year;
+            }
+
+            const char* get_make() const
+            {
+                return this->make;
+            }
+
+            const char* get_model() const
+            {
+                return this->model;
+            }
+
+            void display(std::ostream& os) const
+            {
+                os << vehicle.get_year() << " " << vehicle.get_make() << " " << vehicle.get_model() << std::endl;
+            }
+    };
+
+    std::ostream& operator<<(std::ostream& os, RentalVehicle& vehicle)
+    {
+        vehicle.display(os);
+        return os;
+    }
+
+    ```
+
+    And a derived class called 'PremiumCar', which inherits only the protected members of RentalVehicle:
+
+    ```cpp 
+
+    class PremiumCar : private RentalVehicle
+    {
+        private: 
+            char* navigation_system{nullptr};
+            char* care_instructions{nullptr};
+        public: 
+            PremiumCar()
+            {
+                this->navigation_system = nullptr;
+                this->care_instructions = nullptr;
+            }
+
+            ~PremiumCar()
+            {
+                if (this->navigation_system != nullptr)
+                {
+                    delete[] this->navigation_system;
+                    this->navigation_system = nullptr;                    
+                }
+
+                if (this->care_instructions != nullptr)
+                {
+                    delete[] this->care_instructions;
+                    this->care_instructions = nullptr;
+                }
+            }
+
+            PremiumCar(int year, const char* make, const char* model, const char* navigation, const char* care) : RentalVehicle(year, make, model)
+            {
+                this->navigation_system = new char[std::strlen(navigation) + 1];
+                std::strncpy(this->navigation_system, navigation, std::strlen(navigation));
+                this->navigation_system[std::strlen(navigation)] = '\0';
+
+                this->care_instructions = new char[std::strlen(care) + 1];
+                std::strncpy(this->care_instructions, care, std::strlen(care));
+                this->care_instructions[std::strlen(care)] = '\0';
+            }
+
+            PremiumCar(const PremiumCar& premium)
+            {
+                this->navigation_system = nullptr;
+                this->care_instructions = nullptr;
+
+                this = &premium;
+            }
+
+            PremiumCar& operator=(const PremiumCar& premium)
+            {
+                if (this != &premium)
+                {
+                    if (this->navigation_system != nullptr)
+                    {
+                        delete[] this->navigation_system;
+                        this->navigation_system = nullptr;                    
+                    }
+
+                    this->navigation_system = new char[std::strlen(premium.navigation_system) + 1];
+                    std::strncpy(this->navigation_system, premium.navigation_system, std::strlen(premium.navigation_system));
+                    this->navigation_system[std::strlen(premium.navigation_system)] = '\0';
+
+                    if (this->care_instructions != nullptr)
+                    {
+                        delete[] this->care_instructions;
+                        this->care_instructions = nullptr;
+                    }
+
+                    this->care_instructions = new char[std::strlen(premium.care_instructions) + 1];
+                    std::strncpy(this->care_instructions, premium.care_instructions, std::strlen(premium.care_instructions));
+                    this->care_instructions[std::strlen(premium.care_instructions)] = '\0';
+                }
+
+                return *this;
+            }
+
+            const char* get_navigation_system() const
+            {
+                return this->navigation_system;
+            }
+
+            const char* get_care_instructions() const
+            {
+                return this->care_instructions;
+            }            
+    };
+    std::ostream& operator<<(std::ostream& os, PremiumCar& premium)
+    {
+        RentalVehicle::display(os);
+        os << premium.get_navigation_system() << std::endl;
+        os << premium.get_care_instructions() << std::endl;
+
+        return os;
+    }
+
+    ```
+
+    Alright, now let's talk about inheritence and what is means when you are programming...
+
+    Note the access specifier "protected" in the RentalVehicle class. This access specifier, much like private and public, indicates the level of encapsulation of the data members within.
+            
+        private means that the data members are only visible to that class and that class alone
+
+        protected means the the data members within are only visible to that class and any class that derives from it
+
+        public means that those data members are visible anywhere in the code that can see the class (e.g. calling the header file that contains the class's skeleton)
+
+    In the PremiumCar class definition, you can see that I am inheriting all the private members of the RentalVehicle class. This means that everything private and above (protected and public) is now visible to my derived class.
+
+    In the PremiumCar default constructor, you don't see it but the compiler automatically calls the base class's constructor first, and then the derived class's constructor. For the 5-arg constructor it's a bit different. I am calling the base class's constructor using a constructor initializer list, and passing the appropriate values to it for it to be initialized properly on the base class's side.
+
+    In terms of destructor, copy constructor, and copy assignment operator, the base class's counterparts are all called automatically. 
+    
+    For the copy constructor and assignment operator, it is called in construction order. When object of PremiumCar is copied, first the base class's copy constructor is called to copy over the year, make, and model, and then the PremiumCar's copy constructor is called to copy over the navigation_system and care_instructions. Same deal with copy assignment operator.
+
+    When an object of type PremiumCar goes out of scope, the destruction is done in reverse order. Remember how the base class constructor is called first and then the derived class's constructor during object construction? Well now the derived class's destructor will be called first, and then the base class's destructor.
+
+    You can call any member of the base that which you have access to like this: BaseClassName::MemberName(params_if_required);
+
+
+
+Difficulties in Workshop 7 or Project
+*************************************
+
+In terms of difficulty, the workshops and project were not that hard. The interitence stuff in workshop 7 was easy because I already had a lot of practice using it in OOP244 (the first time) and OOP345. I have previous experience in Java so the concepts of inheritence wasn't anything new. The refreshed OOP244 project was nice because it presented a new set of challenges and material that I had fun working with.

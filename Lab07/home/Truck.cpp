@@ -1,10 +1,10 @@
 /************************************************/
 /*  Student:    Yathavan Parameshwaran          */
 /*  Student #:  070 692 140                     */
-/*  Assignment: Workshop 7.1: Truck.cpp         */
+/*  Assignment: Workshop 7.2: Truck.cpp         */
 /*  Course:     OOP244 (retake)                 */
 /*  Professor:  Andrei Sajeniouk                */
-/*  Date:       July 15, 2020                   */
+/*  Date:       July 19, 2020                   */
 /************************************************/
 
 #include <iostream>
