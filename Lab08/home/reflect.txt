@@ -1,0 +1,100 @@
+/********************************************/
+/*  Student:    Yathavan Parameshwaran      */
+/*  Student #:  070 692 140                 */
+/*  Assignment: Workshop 8.2: reflect.txt   */
+/*  Course:     OOP244 (retake)             */
+/*  Professor:  Andrei Sajeniouk            */
+/*  Date:       July 27, 2020               */
+/********************************************/
+
+Summary of Notes
+****************
+
+Virtual functions and abstract base classes both fall under the heading of 
+polymorphism. Polymorphism is one of the four cornerstones of object oriented 
+programming, the other three being Encapsulation, Inheritence, and Abstraction.
+
+Polymorphism is another word for "many forms". In programming terms, or more 
+specifically in object oriented programming, this means that an object can go 
+through many different states. This is where virtual functions come into play.
+Virtual functions are an example of something called "inclusion polymorphism". 
+These types of functions are member functions (remember, functions of a class),
+and is written to be redefined in any classes that in a sense "inherit" from 
+the base (virtual) class. 
+
+Now, to better explain virtual functions, we must first delve deeper into 
+binding. There are two types of binding: static and dynamic. Static binding is 
+practically the "default" binding. This is when the compiler matches a specific
+function call with a specific function. For example if I had a function called 
+printLine(), the compiler will search the scope of all files included and use 
+the first definition that matches the function signature of the call. Now, 
+dynamic binding is when the programmer manually specifies which function the 
+compiler should match with the function call. To use dynamic binding, you must 
+specify the function with the keyword "virtual".
+
+Please look at this C++ excerpt that I've gotten from IBM Knowledge Center:
+
+#include <iostream>
+using namespace std;
+
+struct A {
+   void f() { cout << "Class A" << endl; }
+};
+
+struct B: A {
+   void f() { cout << "Class B" << endl; }
+};
+
+void g(A& arg) {
+   arg.f();
+}
+
+int main() {
+   B x;
+   g(x);
+}
+
+In this example, struct B inherits from struct A. So when you call function g()
+passing in an object of type B, it should call the B::f(), right? Because even 
+though g() receives an object of type A, B inherits from A so it should call 
+B::f(), right? Nope. It will call A::f(), even if you pass in a B object. To 
+remedy this, we can prefix the A::f() signature with the keyword "virtual", 
+like this:
+
+#include <iostream>
+using namespace std;
+
+struct A {
+   virtual void f() { cout << "Class A" << endl; }
+};
+
+struct B: A {
+   void f() { cout << "Class B" << endl; }
+};
+
+void g(A& arg) {
+   arg.f();
+}
+
+int main() {
+   B x;
+   g(x);
+}
+
+This "virtual" keyword will tell the compiler that "Hey, this is a function 
+that can be found in multiple classes that derive from me. So look at what type
+the object really is and choose the correct function accordingly". Now, the 
+compiler will be sure to see that the object of type A it receives is really 
+from the B struct, and therefore will call B::f(). And because A is using the 
+virtual keyword, it is now known as a polymorphic class. 
+
+
+
+
+Thoughts of Workshop 8
+**********************
+
+Overall the workshop was fairly straightforward. The instructions were very 
+clear and quite easy to follow. I got more practice using virtual functions 
+which will help me with the final project for OOP244 and ultimately in future 
+courses involving C++ and object oriented programming.
