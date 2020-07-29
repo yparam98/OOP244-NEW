@@ -1,0 +1,88 @@
+`:set wrap 80`
+
+/********************************************/
+/*  Student:    Yathavan Parameshwaran      */
+/*  Student #:  070 692 140                 */
+/*  Assignment: Workshop 9.2: reflect.txt   */
+/*  Course:     OOP244 (retake)             */
+/*  Professor:  Andrei Sajeniouk            */
+/*  Date:       July 29, 2020               */
+/********************************************/
+
+Summary of Notes
+****************
+
+Function Templates:
+
+    To first understand function templates, we must first understand templates. Templates are a concept in C++ where you can pass in a specific type to a generic function to perform operations. This is useful when you have an operator in mind that you want to perform on many objects but of different types. You can code a generic function to perform that operator, but template it so that it can accept objects of different types. 
+
+    Now, templates are not limited to only functions. It can be applied to classes as well, so that you can have data members in the class with a specific type that you pass in. 
+
+    So how do you use a function template? You need to use the "template" keyword, then enclosed within a pair of angle brackets you specify your custom type names and however many types you want to receive. For each type you receive, you need to prefix it with either "typename" or "class". I personally use "typename" for both function and class templates so that I can minimize confusing keywords such as the class's "class" keyboard and the template's "class" keyword.
+
+    Example of a function template:
+
+    template <typename T>
+    void print_arr(T arr_one[], int size)
+    {
+        for (int index = 0; index < size; index++)
+        {
+            std::cout << arr_one[index] << std::endl;
+        }
+    }
+
+    In this simple function, you can receive an array of any object be it int, char, float, or even bool and print it to the standard output stream. The 'T' keyword replaces whatever type of object that you pass it. In other words, if you pass in an array of type int, the int will be aliased to T. Same thing will happen if you pass in an array of any other type in. 
+    
+    Even though this is a very simple and small example, it can still replace 3 or 4 other functions that are specified to recieving arrays of type int, float, char, or bool each.
+
+
+Class Templates:
+
+    Class templates serve a similar purpose as that of function templates, except instead of receiving one off objects of a specific type, you can dedicate an entire class to using an object of an unknown type later specified by the end user or the programmer.
+
+    Let's look at an example to begin:
+
+    template<typename V, typename C>
+    class Chapmans
+    {
+        private:
+            V van;
+            C cho;
+        
+        public:
+            Chapmans()
+            {                
+            }
+
+            Chapmans(const V& incoming_obj_1, const C& incoming_obj_2)
+            {
+                this->van = incoming_obj_1;
+                this->cho = incoming_obj_2;
+            }
+
+            void display() const
+            {
+                std::cout << this->van << ", " << this->cho << std::endl;
+            }
+    };
+
+    int main ()
+    {
+        Chapmans<int, double> obj_1(1, 3.14);
+        obj_1.display();
+
+        return 0;
+    }
+
+    In this example, we are creating a class that accepts two incoming types. The object "van" will be of the first type passed in (V), and the object "cho" will be of the second type (C).
+
+    You create an object of a templated class by specifying the types, like in int main(), where I create an object of type Chapmans by passing in int and double as types. This will mean that van will be of type int, and cho of type double. 
+
+    Objects of type Chapmans aren't limited to int or double. It can be std::string, bool, char*, or any type that is already available in the c++ language. 
+        
+
+
+Thoughts on the Workshop
+************************
+
+Workshop 9 was the easiest workshop of them all. It was just create one function for validate and that's it. Overall this has been an easy course and a good course to learn the foundations of object oriented programming and C++.
