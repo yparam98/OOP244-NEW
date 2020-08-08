@@ -12,7 +12,13 @@
 
 namespace sdds
 {
+    struct Utils
+    {
+        bool sensitive_strncmp(const char* str_1, const char* str_2, int length);
+        bool insensitive_strncmp(const char* str_1, const char* str_2, int length);
 
+        const char* toUpperCase(const char* incoming_str);
+    };
 }
 
 #endif // SDDS_UTILS_H

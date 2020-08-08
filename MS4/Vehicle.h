@@ -2,6 +2,7 @@
 #define SDDS_VEHICLE_H
 
 #include "ReadWritable.h"
+#include "Utils.h"
 
 namespace sdds
 {
@@ -13,6 +14,8 @@ namespace sdds
             char* license_plate{nullptr};
             char* make_model{nullptr};
             int spot{0};
+
+            Utils utility_obj;
 
     protected:
             void setEmpty();

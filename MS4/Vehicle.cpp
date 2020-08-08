@@ -53,7 +53,49 @@ namespace sdds
 
     std::istream& Vehicle::read(std::istream& is = std::cin)
     {
-        
+        if (this->isCsv())
+        {
+
+        }
+        else
+        {
+            char buffer[100];
+
+            // user input for license plate
+            std::cout << "Enter License Plate Number: ";
+            std::cin >> buffer;
+
+            while (std::strlen(buffer) > MAX_LICENSE_PLATE)
+            {
+                std::cout << "Invalid License Plate, try again: ";
+                std::cin.ignore(1000, '\n');
+                std::cin >> buffer;
+            }
+            
+            if (this->license_plate != nullptr)
+            {
+                delete[] this->license_plate;
+                this->license_plate = nullptr;
+            }
+
+            this->license_plate = new char[MAX_LICENSE_PLATE + 1];
+            std::strncpy(this->license_plate, buffer, MAX_LICENSE_PLATE);
+            this->license_plate[MAX_LICENSE_PLATE];
+
+            // make and model input
+            std::cout << "Enter Make and Model: ";
+            std::cin >> buffer;
+
+            while (std::strlen(buffer) < 2 || std::strlen(buffer) > 60)
+            {
+                std::cout << "Invalid Make and model, try again: ";
+                std::cin.ignore(1000, '\n');
+                std::cin >> buffer;
+            }
+
+            this->setMakeModel(buffer);
+        }
+
     }
 
     std::ostream& Vehicle::write(std::ostream& os = std::cout) const
