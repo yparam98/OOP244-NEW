@@ -6,41 +6,41 @@
 
 namespace sdds
 {
-    const int MAX_LICENSE_PLATE{8};
+	const int MAX_LICENSE_PLATE{ 8 };
 
-    class Vehicle : public ReadWritable
-    {
-        private:
-            char* license_plate{nullptr};
-            char* make_model{nullptr};
-            int spot{0};
+	class Vehicle : public ReadWritable
+	{
+	private:
+		char* license_plate{ nullptr };
+		char* make_model{ nullptr };
+		int spot{ 0 };
 
-            Utils utility_obj;
+		Utils utility_obj;
 
-    protected:
-            void setEmpty();
-            bool isEmpty() const;
-            const char* getLicensePlate() const;
-            const char* getMakeModel() const;
-            void setMakeModel(const char* incoming_str);
+	protected:
+		void setEmpty();
+		bool isEmpty() const;
+		const char* getLicensePlate() const;
+		const char* getMakeModel() const;
+		void setMakeModel(const char* incoming_str);
 
-        public:
-            Vehicle();
-            ~Vehicle();
+	public:
+		Vehicle();
+		~Vehicle();
 
-            Vehicle(const char*, const char*);
+		Vehicle(const char*, const char*);
 
-            Vehicle(const Vehicle&) = delete; // deleted copy constructor
-            Vehicle& operator=(const Vehicle&) = delete; // deleted copy assignment operator
+		Vehicle(const Vehicle&) = delete; // deleted copy constructor
+		Vehicle& operator=(const Vehicle&) = delete; // deleted copy assignment operator
 
-            int getParkingSpot() const;
-            void setParkingSpot(int);
+		int getParkingSpot() const;
+		void setParkingSpot(int);
 
-            std::istream& read(std::istream& = std::cin);
-            std::ostream& write(std::ostream& = std::cout) const;
+		std::istream& read(std::istream & = std::cin);
+		std::ostream& write(std::ostream & = std::cout) const;
 
-            friend bool operator==(const Vehicle&, const char*);
-            friend bool operator==(const Vehicle&, const Vehicle&);            
-    };
+		friend bool operator==(const Vehicle&, const char*);
+		friend bool operator==(const Vehicle&, const Vehicle&);
+	};
 }
 #endif // SDDS_VEHICLE_H

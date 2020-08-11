@@ -9,8 +9,10 @@
             "command": "g++",
             "args": [
                 "-g",
-		"tester.cpp",
-                "Utils.cpp",
+                "ms4_VehicleTester.cpp",
+		"Utils.cpp",
+		"ReadWritable.cpp",
+		"Vehicle.cpp",
                 "-o",
                 "ws",
                 "-std=c++17",

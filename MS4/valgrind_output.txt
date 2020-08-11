@@ -1,0 +1,145 @@
+[yathavan@lonetech MS4]$ valgrind --leak-check=full ./ws
+==962148== Memcheck, a memory error detector
+==962148== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==962148== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==962148== Command: ./ws
+==962148== 
+Invalid Vehicle Printing:
+Invalid Vehicle Object
+
+Reading vehicle from console: 
+Enter:
+abc<ENTER>
+abc<ENTER>
+Enter Licence Plate Number: abc
+Enter Make and Model: abc
+Printing a Vehicle that is not parked:
+Parking Spot Number: N/A
+Licence Plate: ABC
+Make and Model: abc
+
+Printing a Vehicle that is parked in the spot number 12:
+Parking Spot Number: 12
+Licence Plate: ABC
+Make and Model: abc
+
+Reading and Writing Comma Separated values: 
+Enter: 
+123,abcd,abcd,<ENTER>
+123,abcd,abcd,
+==962148== Conditional jump or move depends on uninitialised value(s)
+==962148==    at 0x483CC88: strlen (vg_replace_strmem.c:459)
+==962148==    by 0x10AFEA: sdds::Vehicle::setMakeModel(char const*) (Vehicle.cpp:262)
+==962148==    by 0x10A97A: sdds::Vehicle::read(std::istream&) (Vehicle.cpp:120)
+==962148==    by 0x10A1FC: sdds::operator>>(std::istream&, sdds::ReadWritable&) (ReadWritable.cpp:38)
+==962148==    by 0x109565: TestIO(sdds::Vehicle&) (ms4_VehicleTester.cpp:46)
+==962148==    by 0x109282: main (ms4_VehicleTester.cpp:25)
+==962148== 
+==962148== Conditional jump or move depends on uninitialised value(s)
+==962148==    at 0x483CC88: strlen (vg_replace_strmem.c:459)
+==962148==    by 0x10B00D: sdds::Vehicle::setMakeModel(char const*) (Vehicle.cpp:263)
+==962148==    by 0x10A97A: sdds::Vehicle::read(std::istream&) (Vehicle.cpp:120)
+==962148==    by 0x10A1FC: sdds::operator>>(std::istream&, sdds::ReadWritable&) (ReadWritable.cpp:38)
+==962148==    by 0x109565: TestIO(sdds::Vehicle&) (ms4_VehicleTester.cpp:46)
+==962148==    by 0x109282: main (ms4_VehicleTester.cpp:25)
+==962148== 
+==962148== Conditional jump or move depends on uninitialised value(s)
+==962148==    at 0x483CC88: strlen (vg_replace_strmem.c:459)
+==962148==    by 0x10B03B: sdds::Vehicle::setMakeModel(char const*) (Vehicle.cpp:264)
+==962148==    by 0x10A97A: sdds::Vehicle::read(std::istream&) (Vehicle.cpp:120)
+==962148==    by 0x10A1FC: sdds::operator>>(std::istream&, sdds::ReadWritable&) (ReadWritable.cpp:38)
+==962148==    by 0x109565: TestIO(sdds::Vehicle&) (ms4_VehicleTester.cpp:46)
+==962148==    by 0x109282: main (ms4_VehicleTester.cpp:25)
+==962148== 
+123,ABCD,abcd,
+opeator== (cstring):
+operator== with cstring works
+opeator== (Vehicle):
+operator== with Vehicle works
+Construction validations:
+Invalid Vehicle Object
+Invalid Vehicle Object
+Invalid Vehicle Object
+Invalid Vehicle Object
+Invalid Vehicle Object
+Invalid Vehicle Object
+Input validations: 
+Enter: 
+123456789<ENTER>
+abc<ENTER>
+abc<ENTER>
+Enter Licence Plate Number: 123456789
+Invalid Licence Plate, try again: abc
+Enter Make and Model: abc
+Parking Spot Number: N/A
+Licence Plate: ABC
+Make and Model: abc
+
+Enter: 
+abc<ENTER>
+a<ENTER>
+ab<ENTER>
+Enter Licence Plate Number: abc
+Enter Make and Model: a
+Invalid Make and model, try again: ab
+Parking Spot Number: N/A
+Licence Plate: ABC
+Make and Model: ab
+
+Testing setParkingSpot validation: 
+Valid setting: 
+Parking Spot Number: 20
+Licence Plate: ABC
+Make and Model: ab
+
+invalid setting: 
+Invalid Vehicle Object
+
+==962148== 
+==962148== HEAP SUMMARY:
+==962148==     in use at exit: 17 bytes in 4 blocks
+==962148==   total heap usage: 24 allocs, 20 frees, 75,074 bytes allocated
+==962148== 
+==962148== 4 bytes in 1 blocks are definitely lost in loss record 1 of 4
+==962148==    at 0x483A50F: operator new[](unsigned long) (vg_replace_malloc.c:431)
+==962148==    by 0x109F4C: sdds::Utils::toUpperCase(char const*) (Utils.cpp:96)
+==962148==    by 0x10AA8F: sdds::Vehicle::read(std::istream&) (Vehicle.cpp:147)
+==962148==    by 0x10A1FC: sdds::operator>>(std::istream&, sdds::ReadWritable&) (ReadWritable.cpp:38)
+==962148==    by 0x109418: TestIO(sdds::Vehicle&) (ms4_VehicleTester.cpp:36)
+==962148==    by 0x109282: main (ms4_VehicleTester.cpp:25)
+==962148== 
+==962148== 4 bytes in 1 blocks are definitely lost in loss record 2 of 4
+==962148==    at 0x483A50F: operator new[](unsigned long) (vg_replace_malloc.c:431)
+==962148==    by 0x109F4C: sdds::Utils::toUpperCase(char const*) (Utils.cpp:96)
+==962148==    by 0x10AA8F: sdds::Vehicle::read(std::istream&) (Vehicle.cpp:147)
+==962148==    by 0x10A1FC: sdds::operator>>(std::istream&, sdds::ReadWritable&) (ReadWritable.cpp:38)
+==962148==    by 0x109878: TestValidations() (ms4_VehicleTester.cpp:73)
+==962148==    by 0x10929A: main (ms4_VehicleTester.cpp:27)
+==962148== 
+==962148== 4 bytes in 1 blocks are definitely lost in loss record 3 of 4
+==962148==    at 0x483A50F: operator new[](unsigned long) (vg_replace_malloc.c:431)
+==962148==    by 0x109F4C: sdds::Utils::toUpperCase(char const*) (Utils.cpp:96)
+==962148==    by 0x10AA8F: sdds::Vehicle::read(std::istream&) (Vehicle.cpp:147)
+==962148==    by 0x10A1FC: sdds::operator>>(std::istream&, sdds::ReadWritable&) (ReadWritable.cpp:38)
+==962148==    by 0x109947: TestValidations() (ms4_VehicleTester.cpp:76)
+==962148==    by 0x10929A: main (ms4_VehicleTester.cpp:27)
+==962148== 
+==962148== 5 bytes in 1 blocks are definitely lost in loss record 4 of 4
+==962148==    at 0x483A50F: operator new[](unsigned long) (vg_replace_malloc.c:431)
+==962148==    by 0x109F4C: sdds::Utils::toUpperCase(char const*) (Utils.cpp:96)
+==962148==    by 0x10A7DB: sdds::Vehicle::read(std::istream&) (Vehicle.cpp:104)
+==962148==    by 0x10A1FC: sdds::operator>>(std::istream&, sdds::ReadWritable&) (ReadWritable.cpp:38)
+==962148==    by 0x109565: TestIO(sdds::Vehicle&) (ms4_VehicleTester.cpp:46)
+==962148==    by 0x109282: main (ms4_VehicleTester.cpp:25)
+==962148== 
+==962148== LEAK SUMMARY:
+==962148==    definitely lost: 17 bytes in 4 blocks
+==962148==    indirectly lost: 0 bytes in 0 blocks
+==962148==      possibly lost: 0 bytes in 0 blocks
+==962148==    still reachable: 0 bytes in 0 blocks
+==962148==         suppressed: 0 bytes in 0 blocks
+==962148== 
+==962148== Use --track-origins=yes to see where uninitialised values come from
+==962148== For lists of detected and suppressed errors, rerun with: -s
+==962148== ERROR SUMMARY: 7 errors from 7 contexts (suppressed: 0 from 0)
+[yathavan@lonetech MS4]$ 

@@ -1,87 +1,37 @@
 #include <iostream>
+#include <cstring>
 #include "Utils.h"
 
 int main()
 {
-    sdds::Utils utils;
+    char buffer[50];
+    char* pos;
+    char* license_plate;
+    char* makemodel;
 
-    char name1[] = "Yathavan";
-    char name2[] = "YaThAvAn";
+    sdds::Utils utility;
 
-    char pizza1[] = "pizza";
-    char pizza2[] = "Pizza";
+    std::cout << "Prompt: ";
+    std::cin >> buffer;
 
-    {
-        std::cout << "Testing sensitive comparison" << std::endl;
+    pos = new char[utility.get_pos(buffer, ',', 1)];
+    std::memcpy(pos, &buffer[0], utility.get_pos(buffer, ',', 1));
+    pos[utility.get_pos(buffer, ',', 1)] = '\0';
 
-        std::cout << name1 << " vs " << name2 << std::endl;
-        std::cout << "Match = " << utils.sensitive_strncmp(name1, name2, 8) << std::endl;
+    license_plate = new char[(utility.get_pos(buffer, ',', 2) - utility.get_pos(buffer, ',', 1))];
+    std::memcpy(license_plate, &buffer[utility.get_pos(buffer, ',', 1) + 1], ((utility.get_pos(buffer, ',', 2) - utility.get_pos(buffer, ',', 1)) - 1));
+    license_plate[utility.get_pos(buffer, ',', 2)] = '\0';
 
-        std::cout << name1 << " vs " << name1 << std::endl;
-        std::cout << "Match = " << utils.sensitive_strncmp(name1, name1, 8) << std::endl;
+    makemodel = new char[(utility.get_pos(buffer, ',', 3) - utility.get_pos(buffer, ',', 2))];
+    std::memcpy(makemodel, &buffer[utility.get_pos(buffer, ',', 2) + 1], ((utility.get_pos(buffer, ',', 3) - utility.get_pos(buffer, ',', 2)) - 1));
+    makemodel[utility.get_pos(buffer, ',', 3)] = '\0';
 
-        std::cout << name2 << " vs " << name2 << std::endl;
-        std::cout << "Match = " << utils.sensitive_strncmp(name2, name2, 8) << std::endl;
+    std::cout << pos << std::endl;
+    std::cout << license_plate << std::endl;
+    std::cout << makemodel << std::endl;
 
-        std::cout << pizza1 << " vs " << pizza2 << std::endl;
-        std::cout << "Match = " << utils.sensitive_strncmp(pizza1, pizza2, 8) << std::endl;
 
-        std::cout << pizza1 << " vs " << pizza1 << std::endl;
-        std::cout << "Match = " << utils.sensitive_strncmp(pizza1, pizza1, 8) << std::endl;
 
-        std::cout << pizza2 << " vs " << pizza2 << std::endl;
-        std::cout << "Match = " << utils.sensitive_strncmp(pizza2, pizza2, 8) << std::endl;
-    }
-
-    {
-        std::cout << "Testing insensitive comparison" << std::endl;
-
-        std::cout << name1 << " vs " << name2 << std::endl;
-        std::cout << "Match = " << utils.insensitive_strncmp(name1, name2, 8) << std::endl;
-
-        std::cout << name1 << " vs " << name1 << std::endl;
-        std::cout << "Match = " << utils.insensitive_strncmp(name1, name1, 8) << std::endl;
-
-        std::cout << name2 << " vs " << name2 << std::endl;
-        std::cout << "Match = " << utils.insensitive_strncmp(name2, name2, 8) << std::endl;
-
-        std::cout << pizza1 << " vs " << pizza2 << std::endl;
-        std::cout << "Match = " << utils.insensitive_strncmp(pizza1, pizza2, 8) << std::endl;
-
-        std::cout << pizza1 << " vs " << pizza1 << std::endl;
-        std::cout << "Match = " << utils.insensitive_strncmp(pizza1, pizza1, 8) << std::endl;
-
-        std::cout << pizza2 << " vs " << pizza2 << std::endl;
-        std::cout << "Match = " << utils.insensitive_strncmp(pizza2, pizza2, 8) << std::endl;
-
-        std::cout << name1 << " vs " << pizza1 << std::endl;
-        std::cout << "Match = " << utils.insensitive_strncmp(name1, pizza1, 5) << std::endl;
-
-        std::cout << name1 << " vs " << pizza2 << std::endl;
-        std::cout << "Match = " << utils.insensitive_strncmp(name1, pizza2, 5) << std::endl;
-
-        std::cout << name2 << " vs " << pizza1 << std::endl;
-        std::cout << "Match = " << utils.insensitive_strncmp(name2, pizza1, 5) << std::endl;
-
-        std::cout << name2 << " vs " << pizza2 << std::endl;
-        std::cout << "Match = " << utils.insensitive_strncmp(name2, pizza2, 5) << std::endl;
-    }
-
-    {
-        std::cout << "To Uppercase" << std::endl;
-
-        std::cout << name1 << " to upper case" << std::endl;
-        std::cout << utils.toUpperCase(name1) << std::endl;
-
-        std::cout << name2 << " to upper case" << std::endl;
-        std::cout << utils.toUpperCase(name2) << std::endl;
-
-        std::cout << pizza1 << " to upper case" << std::endl;
-        std::cout << utils.toUpperCase(pizza1) << std::endl;
-
-        std::cout << pizza2 << " to upper case" << std::endl;
-        std::cout << utils.toUpperCase(pizza2) << std::endl;
-    }
 
 
 

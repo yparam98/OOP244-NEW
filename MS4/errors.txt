@@ -1,0 +1,312 @@
+ms4_VehicleTester.cpp: In function ‘void TestValidations()’:
+ms4_VehicleTester.cpp:56:4: warning: deleting object of polymorphic class type ‘sdds::Vehicle’ which has non-virtual destructor might cause undefined behavior [-Wdelete-non-virtual-dtor]
+   56 |    delete V;
+      |    ^~~~~~~~
+ms4_VehicleTester.cpp:59:4: warning: deleting object of polymorphic class type ‘sdds::Vehicle’ which has non-virtual destructor might cause undefined behavior [-Wdelete-non-virtual-dtor]
+   59 |    delete V;
+      |    ^~~~~~~~
+ms4_VehicleTester.cpp:62:4: warning: deleting object of polymorphic class type ‘sdds::Vehicle’ which has non-virtual destructor might cause undefined behavior [-Wdelete-non-virtual-dtor]
+   62 |    delete V;
+      |    ^~~~~~~~
+ms4_VehicleTester.cpp:65:4: warning: deleting object of polymorphic class type ‘sdds::Vehicle’ which has non-virtual destructor might cause undefined behavior [-Wdelete-non-virtual-dtor]
+   65 |    delete V;
+      |    ^~~~~~~~
+ms4_VehicleTester.cpp:68:4: warning: deleting object of polymorphic class type ‘sdds::Vehicle’ which has non-virtual destructor might cause undefined behavior [-Wdelete-non-virtual-dtor]
+   68 |    delete V;
+      |    ^~~~~~~~
+ms4_VehicleTester.cpp:84:4: warning: deleting object of polymorphic class type ‘sdds::Vehicle’ which has non-virtual destructor might cause undefined behavior [-Wdelete-non-virtual-dtor]
+   84 |    delete V;
+      |    ^~~~~~~~
+Vehicle.cpp:54:16: error: default argument given for parameter 1 of ‘std::istream& sdds::Vehicle::read(std::istream&)’
+   54 |  std::istream& Vehicle::read(std::istream& is = std::cin)
+      |                ^~~~~~~
+In file included from Vehicle.cpp:4:
+Vehicle.h:39:18: note: previous specification in ‘virtual std::istream& sdds::Vehicle::read(std::istream&)’ here
+   39 |    std::istream& read(std::istream& = std::cin);
+      |                  ^~~~
+Vehicle.cpp: In member function ‘virtual std::istream& sdds::Vehicle::read(std::istream&)’:
+Vehicle.cpp:62:11: error: invalid conversion from ‘int’ to ‘std::basic_istream<char>::char_type*’ {aka ‘char*’} [-fpermissive]
+   62 |    is.get(parking_spot_holder, 1);
+      |           ^~~~~~~~~~~~~~~~~~~
+      |           |
+      |           int
+In file included from /usr/include/c++/10.1.0/iostream:40,
+                 from Vehicle.cpp:1:
+/usr/include/c++/10.1.0/istream:354:22: note:   initializing argument 1 of ‘std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::get(std::basic_istream<_CharT, _Traits>::char_type*, std::streamsize) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>; std::basic_istream<_CharT, _Traits>::char_type = char; std::streamsize = long int]’
+  354 |       get(char_type* __s, streamsize __n)
+      |           ~~~~~~~~~~~^~~
+Vehicle.cpp:107:41: warning: value computed is not used [-Wunused-value]
+  107 |    this->license_plate[MAX_LICENSE_PLATE];
+      |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+Vehicle.cpp:107:41: warning: statement has no effect [-Wunused-value]
+Vehicle.cpp: At global scope:
+Vehicle.cpp:128:16: error: default argument given for parameter 1 of ‘std::ostream& sdds::Vehicle::write(std::ostream&) const’
+  128 |  std::ostream& Vehicle::write(std::ostream& os = std::cout) const
+      |                ^~~~~~~
+In file included from Vehicle.cpp:4:
+Vehicle.h:40:18: note: previous specification in ‘virtual std::ostream& sdds::Vehicle::write(std::ostream&) const’ here
+   40 |    std::ostream& write(std::ostream& = std::cout) const;
+      |                  ^~~~~
+Vehicle.cpp: In member function ‘virtual std::ostream& sdds::Vehicle::write(std::ostream&) const’:
+Vehicle.cpp:142:61: error: no match for ‘operator==’ (operand types are ‘std::basic_ostream<char>’ and ‘int’)
+  142 |     os << "Parking Spot Number: " << this->getParkingSpot() == 0 ? "N/A" : this->getParkingSpot() << std::endl;
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^~ ~
+      |                                   |                            |
+      |                                   std::basic_ostream<char>     int
+Vehicle.cpp:142:61: note: candidate: ‘operator==(int, int)’ (built-in)
+  142 |     os << "Parking Spot Number: " << this->getParkingSpot() == 0 ? "N/A" : this->getParkingSpot() << std::endl;
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~
+Vehicle.cpp:142:61: note:   no known conversion for argument 1 from ‘std::basic_ostream<char>’ to ‘int’
+In file included from /usr/include/c++/10.1.0/iosfwd:40,
+                 from /usr/include/c++/10.1.0/ios:38,
+                 from /usr/include/c++/10.1.0/ostream:38,
+                 from /usr/include/c++/10.1.0/iostream:39,
+                 from Vehicle.cpp:1:
+/usr/include/c++/10.1.0/bits/postypes.h:222:5: note: candidate: ‘template<class _StateT> bool std::operator==(const std::fpos<_StateT>&, const std::fpos<_StateT>&)’
+  222 |     operator==(const fpos<_StateT>& __lhs, const fpos<_StateT>& __rhs)
+      |     ^~~~~~~~
+/usr/include/c++/10.1.0/bits/postypes.h:222:5: note:   template argument deduction/substitution failed:
+Vehicle.cpp:142:64: note:   ‘std::basic_ostream<char>’ is not derived from ‘const std::fpos<_StateT>’
+  142 |     os << "Parking Spot Number: " << this->getParkingSpot() == 0 ? "N/A" : this->getParkingSpot() << std::endl;
+      |                                                                ^
+In file included from /usr/include/c++/10.1.0/bits/stl_algobase.h:64,
+                 from /usr/include/c++/10.1.0/bits/char_traits.h:39,
+                 from /usr/include/c++/10.1.0/ios:40,
+                 from /usr/include/c++/10.1.0/ostream:38,
+                 from /usr/include/c++/10.1.0/iostream:39,
+                 from Vehicle.cpp:1:
+/usr/include/c++/10.1.0/bits/stl_pair.h:466:5: note: candidate: ‘template<class _T1, class _T2> constexpr bool std::operator==(const std::pair<_T1, _T2>&, const std::pair<_T1, _T2>&)’
+  466 |     operator==(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
+      |     ^~~~~~~~
+/usr/include/c++/10.1.0/bits/stl_pair.h:466:5: note:   template argument deduction/substitution failed:
+Vehicle.cpp:142:64: note:   ‘std::basic_ostream<char>’ is not derived from ‘const std::pair<_T1, _T2>’
+  142 |     os << "Parking Spot Number: " << this->getParkingSpot() == 0 ? "N/A" : this->getParkingSpot() << std::endl;
+      |                                                                ^
+In file included from /usr/include/c++/10.1.0/bits/stl_algobase.h:67,
+                 from /usr/include/c++/10.1.0/bits/char_traits.h:39,
+                 from /usr/include/c++/10.1.0/ios:40,
+                 from /usr/include/c++/10.1.0/ostream:38,
+                 from /usr/include/c++/10.1.0/iostream:39,
+                 from Vehicle.cpp:1:
+/usr/include/c++/10.1.0/bits/stl_iterator.h:360:5: note: candidate: ‘template<class _Iterator> constexpr bool std::operator==(const std::reverse_iterator<_Iterator>&, const std::reverse_iterator<_Iterator>&)’
+  360 |     operator==(const reverse_iterator<_Iterator>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/10.1.0/bits/stl_iterator.h:360:5: note:   template argument deduction/substitution failed:
+Vehicle.cpp:142:64: note:   ‘std::basic_ostream<char>’ is not derived from ‘const std::reverse_iterator<_Iterator>’
+  142 |     os << "Parking Spot Number: " << this->getParkingSpot() == 0 ? "N/A" : this->getParkingSpot() << std::endl;
+      |                                                                ^
+In file included from /usr/include/c++/10.1.0/bits/stl_algobase.h:67,
+                 from /usr/include/c++/10.1.0/bits/char_traits.h:39,
+                 from /usr/include/c++/10.1.0/ios:40,
+                 from /usr/include/c++/10.1.0/ostream:38,
+                 from /usr/include/c++/10.1.0/iostream:39,
+                 from Vehicle.cpp:1:
+/usr/include/c++/10.1.0/bits/stl_iterator.h:398:5: note: candidate: ‘template<class _IteratorL, class _IteratorR> constexpr bool std::operator==(const std::reverse_iterator<_Iterator>&, const std::reverse_iterator<_IteratorR>&)’
+  398 |     operator==(const reverse_iterator<_IteratorL>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/10.1.0/bits/stl_iterator.h:398:5: note:   template argument deduction/substitution failed:
+Vehicle.cpp:142:64: note:   ‘std::basic_ostream<char>’ is not derived from ‘const std::reverse_iterator<_Iterator>’
+  142 |     os << "Parking Spot Number: " << this->getParkingSpot() == 0 ? "N/A" : this->getParkingSpot() << std::endl;
+      |                                                                ^
+In file included from /usr/include/c++/10.1.0/bits/stl_algobase.h:67,
+                 from /usr/include/c++/10.1.0/bits/char_traits.h:39,
+                 from /usr/include/c++/10.1.0/ios:40,
+                 from /usr/include/c++/10.1.0/ostream:38,
+                 from /usr/include/c++/10.1.0/iostream:39,
+                 from Vehicle.cpp:1:
+/usr/include/c++/10.1.0/bits/stl_iterator.h:1427:5: note: candidate: ‘template<class _IteratorL, class _IteratorR> constexpr bool std::operator==(const std::move_iterator<_IteratorL>&, const std::move_iterator<_IteratorR>&)’
+ 1427 |     operator==(const move_iterator<_IteratorL>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/10.1.0/bits/stl_iterator.h:1427:5: note:   template argument deduction/substitution failed:
+Vehicle.cpp:142:64: note:   ‘std::basic_ostream<char>’ is not derived from ‘const std::move_iterator<_IteratorL>’
+  142 |     os << "Parking Spot Number: " << this->getParkingSpot() == 0 ? "N/A" : this->getParkingSpot() << std::endl;
+      |                                                                ^
+In file included from /usr/include/c++/10.1.0/bits/stl_algobase.h:67,
+                 from /usr/include/c++/10.1.0/bits/char_traits.h:39,
+                 from /usr/include/c++/10.1.0/ios:40,
+                 from /usr/include/c++/10.1.0/ostream:38,
+                 from /usr/include/c++/10.1.0/iostream:39,
+                 from Vehicle.cpp:1:
+/usr/include/c++/10.1.0/bits/stl_iterator.h:1495:5: note: candidate: ‘template<class _Iterator> constexpr bool std::operator==(const std::move_iterator<_IteratorL>&, const std::move_iterator<_IteratorL>&)’
+ 1495 |     operator==(const move_iterator<_Iterator>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/10.1.0/bits/stl_iterator.h:1495:5: note:   template argument deduction/substitution failed:
+Vehicle.cpp:142:64: note:   ‘std::basic_ostream<char>’ is not derived from ‘const std::move_iterator<_IteratorL>’
+  142 |     os << "Parking Spot Number: " << this->getParkingSpot() == 0 ? "N/A" : this->getParkingSpot() << std::endl;
+      |                                                                ^
+In file included from /usr/include/c++/10.1.0/string:41,
+                 from /usr/include/c++/10.1.0/bits/locale_classes.h:40,
+                 from /usr/include/c++/10.1.0/bits/ios_base.h:41,
+                 from /usr/include/c++/10.1.0/ios:42,
+                 from /usr/include/c++/10.1.0/ostream:38,
+                 from /usr/include/c++/10.1.0/iostream:39,
+                 from Vehicle.cpp:1:
+/usr/include/c++/10.1.0/bits/allocator.h:206:5: note: candidate: ‘template<class _T1, class _T2> bool std::operator==(const std::allocator<_CharT>&, const std::allocator<_T2>&)’
+  206 |     operator==(const allocator<_T1>&, const allocator<_T2>&)
+      |     ^~~~~~~~
+/usr/include/c++/10.1.0/bits/allocator.h:206:5: note:   template argument deduction/substitution failed:
+Vehicle.cpp:142:64: note:   ‘std::basic_ostream<char>’ is not derived from ‘const std::allocator<_CharT>’
+  142 |     os << "Parking Spot Number: " << this->getParkingSpot() == 0 ? "N/A" : this->getParkingSpot() << std::endl;
+      |                                                                ^
+In file included from /usr/include/c++/10.1.0/bits/basic_string.h:48,
+                 from /usr/include/c++/10.1.0/string:55,
+                 from /usr/include/c++/10.1.0/bits/locale_classes.h:40,
+                 from /usr/include/c++/10.1.0/bits/ios_base.h:41,
+                 from /usr/include/c++/10.1.0/ios:42,
+                 from /usr/include/c++/10.1.0/ostream:38,
+                 from /usr/include/c++/10.1.0/iostream:39,
+                 from Vehicle.cpp:1:
+/usr/include/c++/10.1.0/string_view:490:5: note: candidate: ‘template<class _CharT, class _Traits> constexpr bool std::operator==(std::basic_string_view<_CharT, _Traits>, std::basic_string_view<_CharT, _Traits>)’
+  490 |     operator==(basic_string_view<_CharT, _Traits> __x,
+      |     ^~~~~~~~
+/usr/include/c++/10.1.0/string_view:490:5: note:   template argument deduction/substitution failed:
+Vehicle.cpp:142:64: note:   ‘std::basic_ostream<char>’ is not derived from ‘std::basic_string_view<_CharT, _Traits>’
+  142 |     os << "Parking Spot Number: " << this->getParkingSpot() == 0 ? "N/A" : this->getParkingSpot() << std::endl;
+      |                                                                ^
+In file included from /usr/include/c++/10.1.0/bits/basic_string.h:48,
+                 from /usr/include/c++/10.1.0/string:55,
+                 from /usr/include/c++/10.1.0/bits/locale_classes.h:40,
+                 from /usr/include/c++/10.1.0/bits/ios_base.h:41,
+                 from /usr/include/c++/10.1.0/ios:42,
+                 from /usr/include/c++/10.1.0/ostream:38,
+                 from /usr/include/c++/10.1.0/iostream:39,
+                 from Vehicle.cpp:1:
+/usr/include/c++/10.1.0/string_view:496:5: note: candidate: ‘template<class _CharT, class _Traits> constexpr bool std::operator==(std::basic_string_view<_CharT, _Traits>, std::__type_identity_t<std::basic_string_view<_CharT, _Traits> >)’
+  496 |     operator==(basic_string_view<_CharT, _Traits> __x,
+      |     ^~~~~~~~
+/usr/include/c++/10.1.0/string_view:496:5: note:   template argument deduction/substitution failed:
+Vehicle.cpp:142:64: note:   ‘std::basic_ostream<char>’ is not derived from ‘std::basic_string_view<_CharT, _Traits>’
+  142 |     os << "Parking Spot Number: " << this->getParkingSpot() == 0 ? "N/A" : this->getParkingSpot() << std::endl;
+      |                                                                ^
+In file included from /usr/include/c++/10.1.0/bits/basic_string.h:48,
+                 from /usr/include/c++/10.1.0/string:55,
+                 from /usr/include/c++/10.1.0/bits/locale_classes.h:40,
+                 from /usr/include/c++/10.1.0/bits/ios_base.h:41,
+                 from /usr/include/c++/10.1.0/ios:42,
+                 from /usr/include/c++/10.1.0/ostream:38,
+                 from /usr/include/c++/10.1.0/iostream:39,
+                 from Vehicle.cpp:1:
+/usr/include/c++/10.1.0/string_view:519:5: note: candidate: ‘template<class _CharT, class _Traits> constexpr bool std::operator==(std::__type_identity_t<std::basic_string_view<_CharT, _Traits> >, std::basic_string_view<_CharT, _Traits>)’
+  519 |     operator==(__type_identity_t<basic_string_view<_CharT, _Traits>> __x,
+      |     ^~~~~~~~
+/usr/include/c++/10.1.0/string_view:519:5: note:   template argument deduction/substitution failed:
+Vehicle.cpp:142:64: note:   mismatched types ‘std::basic_string_view<_CharT, _Traits>’ and ‘int’
+  142 |     os << "Parking Spot Number: " << this->getParkingSpot() == 0 ? "N/A" : this->getParkingSpot() << std::endl;
+      |                                                                ^
+In file included from /usr/include/c++/10.1.0/string:55,
+                 from /usr/include/c++/10.1.0/bits/locale_classes.h:40,
+                 from /usr/include/c++/10.1.0/bits/ios_base.h:41,
+                 from /usr/include/c++/10.1.0/ios:42,
+                 from /usr/include/c++/10.1.0/ostream:38,
+                 from /usr/include/c++/10.1.0/iostream:39,
+                 from Vehicle.cpp:1:
+/usr/include/c++/10.1.0/bits/basic_string.h:6153:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> bool std::operator==(const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>&, const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>&)’
+ 6153 |     operator==(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/10.1.0/bits/basic_string.h:6153:5: note:   template argument deduction/substitution failed:
+Vehicle.cpp:142:64: note:   ‘std::basic_ostream<char>’ is not derived from ‘const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>’
+  142 |     os << "Parking Spot Number: " << this->getParkingSpot() == 0 ? "N/A" : this->getParkingSpot() << std::endl;
+      |                                                                ^
+In file included from /usr/include/c++/10.1.0/string:55,
+                 from /usr/include/c++/10.1.0/bits/locale_classes.h:40,
+                 from /usr/include/c++/10.1.0/bits/ios_base.h:41,
+                 from /usr/include/c++/10.1.0/ios:42,
+                 from /usr/include/c++/10.1.0/ostream:38,
+                 from /usr/include/c++/10.1.0/iostream:39,
+                 from Vehicle.cpp:1:
+/usr/include/c++/10.1.0/bits/basic_string.h:6161:5: note: candidate: ‘template<class _CharT> typename __gnu_cxx::__enable_if<std::__is_char<_Tp>::__value, bool>::__type std::operator==(const std::__cxx11::basic_string<_CharT>&, const std::__cxx11::basic_string<_CharT>&)’
+ 6161 |     operator==(const basic_string<_CharT>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/10.1.0/bits/basic_string.h:6161:5: note:   template argument deduction/substitution failed:
+Vehicle.cpp:142:64: note:   ‘std::basic_ostream<char>’ is not derived from ‘const std::__cxx11::basic_string<_CharT>’
+  142 |     os << "Parking Spot Number: " << this->getParkingSpot() == 0 ? "N/A" : this->getParkingSpot() << std::endl;
+      |                                                                ^
+In file included from /usr/include/c++/10.1.0/string:55,
+                 from /usr/include/c++/10.1.0/bits/locale_classes.h:40,
+                 from /usr/include/c++/10.1.0/bits/ios_base.h:41,
+                 from /usr/include/c++/10.1.0/ios:42,
+                 from /usr/include/c++/10.1.0/ostream:38,
+                 from /usr/include/c++/10.1.0/iostream:39,
+                 from Vehicle.cpp:1:
+/usr/include/c++/10.1.0/bits/basic_string.h:6175:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> bool std::operator==(const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>&, const _CharT*)’
+ 6175 |     operator==(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/10.1.0/bits/basic_string.h:6175:5: note:   template argument deduction/substitution failed:
+Vehicle.cpp:142:64: note:   ‘std::basic_ostream<char>’ is not derived from ‘const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>’
+  142 |     os << "Parking Spot Number: " << this->getParkingSpot() == 0 ? "N/A" : this->getParkingSpot() << std::endl;
+      |                                                                ^
+In file included from /usr/include/c++/10.1.0/string:55,
+                 from /usr/include/c++/10.1.0/bits/locale_classes.h:40,
+                 from /usr/include/c++/10.1.0/bits/ios_base.h:41,
+                 from /usr/include/c++/10.1.0/ios:42,
+                 from /usr/include/c++/10.1.0/ostream:38,
+                 from /usr/include/c++/10.1.0/iostream:39,
+                 from Vehicle.cpp:1:
+/usr/include/c++/10.1.0/bits/basic_string.h:6216:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> bool std::operator==(const _CharT*, const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>&)’
+ 6216 |     operator==(const _CharT* __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/10.1.0/bits/basic_string.h:6216:5: note:   template argument deduction/substitution failed:
+Vehicle.cpp:142:64: note:   mismatched types ‘const _CharT*’ and ‘std::basic_ostream<char>’
+  142 |     os << "Parking Spot Number: " << this->getParkingSpot() == 0 ? "N/A" : this->getParkingSpot() << std::endl;
+      |                                                                ^
+In file included from /usr/include/c++/10.1.0/bits/ios_base.h:46,
+                 from /usr/include/c++/10.1.0/ios:42,
+                 from /usr/include/c++/10.1.0/ostream:38,
+                 from /usr/include/c++/10.1.0/iostream:39,
+                 from Vehicle.cpp:1:
+/usr/include/c++/10.1.0/system_error:342:3: note: candidate: ‘bool std::operator==(const std::error_code&, const std::error_code&)’
+  342 |   operator==(const error_code& __lhs, const error_code& __rhs) noexcept
+      |   ^~~~~~~~
+/usr/include/c++/10.1.0/system_error:342:32: note:   no known conversion for argument 1 from ‘std::basic_ostream<char>’ to ‘const std::error_code&’
+  342 |   operator==(const error_code& __lhs, const error_code& __rhs) noexcept
+      |              ~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/10.1.0/system_error:349:3: note: candidate: ‘bool std::operator==(const std::error_code&, const std::error_condition&)’
+  349 |   operator==(const error_code& __lhs, const error_condition& __rhs) noexcept
+      |   ^~~~~~~~
+/usr/include/c++/10.1.0/system_error:349:32: note:   no known conversion for argument 1 from ‘std::basic_ostream<char>’ to ‘const std::error_code&’
+  349 |   operator==(const error_code& __lhs, const error_condition& __rhs) noexcept
+      |              ~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/10.1.0/system_error:357:3: note: candidate: ‘bool std::operator==(const std::error_condition&, const std::error_condition&)’
+  357 |   operator==(const error_condition& __lhs,
+      |   ^~~~~~~~
+/usr/include/c++/10.1.0/system_error:357:37: note:   no known conversion for argument 1 from ‘std::basic_ostream<char>’ to ‘const std::error_condition&’
+  357 |   operator==(const error_condition& __lhs,
+      |              ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/10.1.0/system_error:390:3: note: candidate: ‘bool std::operator==(const std::error_condition&, const std::error_code&)’
+  390 |   operator==(const error_condition& __lhs, const error_code& __rhs) noexcept
+      |   ^~~~~~~~
+/usr/include/c++/10.1.0/system_error:390:37: note:   no known conversion for argument 1 from ‘std::basic_ostream<char>’ to ‘const std::error_condition&’
+  390 |   operator==(const error_condition& __lhs, const error_code& __rhs) noexcept
+      |              ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+In file included from /usr/include/c++/10.1.0/bits/locale_facets.h:48,
+                 from /usr/include/c++/10.1.0/bits/basic_ios.h:37,
+                 from /usr/include/c++/10.1.0/ios:44,
+                 from /usr/include/c++/10.1.0/ostream:38,
+                 from /usr/include/c++/10.1.0/iostream:39,
+                 from Vehicle.cpp:1:
+/usr/include/c++/10.1.0/bits/streambuf_iterator.h:227:5: note: candidate: ‘template<class _CharT, class _Traits> bool std::operator==(const std::istreambuf_iterator<_CharT, _Traits>&, const std::istreambuf_iterator<_CharT, _Traits>&)’
+  227 |     operator==(const istreambuf_iterator<_CharT, _Traits>& __a,
+      |     ^~~~~~~~
+/usr/include/c++/10.1.0/bits/streambuf_iterator.h:227:5: note:   template argument deduction/substitution failed:
+Vehicle.cpp:142:64: note:   ‘std::basic_ostream<char>’ is not derived from ‘const std::istreambuf_iterator<_CharT, _Traits>’
+  142 |     os << "Parking Spot Number: " << this->getParkingSpot() == 0 ? "N/A" : this->getParkingSpot() << std::endl;
+      |                                                                ^
+Vehicle.cpp:142:99: error: invalid operands of types ‘int’ and ‘<unresolved overloaded function type>’ to binary ‘operator<<’
+  142 |     os << "Parking Spot Number: " << this->getParkingSpot() == 0 ? "N/A" : this->getParkingSpot() << std::endl;
+      |                                                                            ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+Vehicle.cpp: In function ‘bool sdds::operator==(const sdds::Vehicle&, const char*)’:
+Vehicle.cpp:155:2: warning: no return statement in function returning non-void [-Wreturn-type]
+  155 |  }
+      |  ^
+Vehicle.cpp: In function ‘bool sdds::operator==(const sdds::Vehicle&, const sdds::Vehicle&)’:
+Vehicle.cpp:161:2: warning: no return statement in function returning non-void [-Wreturn-type]
+  161 |  }
+      |  ^
+Vehicle.cpp: In member function ‘const char* sdds::Vehicle::getLicensePlate() const’:
+Vehicle.cpp:191:2: warning: control reaches end of non-void function [-Wreturn-type]
+  191 |  }
+      |  ^
+Vehicle.cpp: In member function ‘const char* sdds::Vehicle::getMakeModel() const’:
+Vehicle.cpp:199:2: warning: control reaches end of non-void function [-Wreturn-type]
+  199 |  }
+      |  ^

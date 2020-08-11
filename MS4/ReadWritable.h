@@ -14,22 +14,22 @@
 
 namespace sdds
 {
-    class ReadWritable
-    {
-        private:
-            bool comma_seperated{false};
-        public:
-            ReadWritable();
-            ~ReadWritable();
+	class ReadWritable
+	{
+		private:
+			bool comma_seperated{false};
+		public:
+			ReadWritable();
+			virtual ~ReadWritable();
 
-            virtual std::istream& read(std::istream& is = std::cin) = 0;
-            virtual std::ostream& write(std::ostream& os = std::cout) const = 0;
+			virtual std::istream& read(std::istream& is = std::cin) = 0;
+			virtual std::ostream& write(std::ostream& os = std::cout) const = 0;
 
-            bool isCsv() const;
-            void setCsv(bool);
-    };
-    std::ostream& operator<<(std::ostream& os, const ReadWritable& rw);
-    std::istream& operator>>(std::istream& is, ReadWritable& rw);
+			bool isCsv() const;
+			void setCsv(bool);
+	};
+	std::ostream& operator<<(std::ostream& os, const ReadWritable& rw);
+	std::istream& operator>>(std::istream& is, ReadWritable& rw);
 }
 
 #endif // SDDS_READWRITABLE_H

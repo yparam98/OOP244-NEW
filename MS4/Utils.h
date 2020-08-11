@@ -12,13 +12,15 @@
 
 namespace sdds
 {
-    struct Utils
-    {
-        bool sensitive_strncmp(const char* str_1, const char* str_2, int length);
-        bool insensitive_strncmp(const char* str_1, const char* str_2, int length);
+	struct Utils
+	{
+		bool sensitive_strncmp(const char* str_1, const char* str_2, int length);
+		bool insensitive_strncmp(const char* str_1, const char* str_2, int length);
 
-        const char* toUpperCase(const char* incoming_str);
-    };
+		const char* toUpperCase(const char* incoming_str);
+
+		int get_pos(const char* incoming_str, char find, int iteration);
+	};
 }
 
 #endif // SDDS_UTILS_H
