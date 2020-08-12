@@ -12,6 +12,8 @@
 
 #include "Menu.h"
 #include "Vehicle.h"
+#include "Car.h"
+#include "Motorcycle.h"
 
 namespace sdds
 {
@@ -26,12 +28,13 @@ namespace sdds
         
         // ms6 additions
         int num_of_spots{0};
+        int num_of_parked_vehicles{0};
         Vehicle* parking_spots[MAX_PARKING_SPOTS];
         
         bool isEmpty() const;
         void status() const;
-        void park_vehicle() const;
-        void return_vehicle() const;
+        void park_vehicle();
+        void return_vehicle();
         void list_parked_vehicles() const;
         bool close_parking() const;
         bool exit_parking_app() const;
@@ -42,7 +45,7 @@ namespace sdds
 
     public:
         Parking();
-        Parking(const char *);
+        Parking(const char *, int); // updated for ms6
         ~Parking();
 
         Parking(const Parking &) = delete;

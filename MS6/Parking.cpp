@@ -21,10 +21,16 @@ namespace sdds
         this->indentation = 0;
         this->parking_menu = Menu();
         this->vehicle_selection_menu = Menu();
+
+        // added for ms6
+        for (int index = 0; index < MAX_PARKING_SPOTS; index++)
+        {
+            this->parking_spots[index] = nullptr;
+        }
     }
 
-    /* 1-arg constructor: create Parking object with name of data file */
-    Parking::Parking(const char *incoming_str)
+    /* 1-arg constructor: create Parking object with name of data file <UPDATED FOR MS6> */
+    Parking::Parking(const char *incoming_str, int noOfSpots)
     {
         if (incoming_str == nullptr || incoming_str[0] == '\0')
         {
@@ -59,6 +65,22 @@ namespace sdds
             std::cout << "Error in data file" << std::endl;
             this->set_invalid();
         }
+
+        // added for ms6
+        if (noOfSpots < 10 || num_of_spots > MAX_PARKING_SPOTS)
+        {
+            this->num_of_spots = noOfSpots;
+        }
+        else
+        {
+            this->set_invalid();
+        }
+
+        // added for ms6
+        for (int index = 0; index < MAX_PARKING_SPOTS; index++)
+        {
+            this->parking_spots[index] = nullptr;
+        }
     }
 
     /* destructor: deallocates (frees) any previously allocated memory */
@@ -70,6 +92,16 @@ namespace sdds
         {
             delete[] this->file_name;
             this->file_name = nullptr;
+        }
+
+        // added for ms6
+        for (int index = 0; index < MAX_PARKING_SPOTS; index++)
+        {
+            if (this->parking_spots[index] != nullptr)
+            {
+                delete[] this->parking_spots[index];
+                this->parking_spots[index] = nullptr;
+            }
         }
     }
 
@@ -183,31 +215,127 @@ namespace sdds
     void Parking::status() const
     {
         std::cout << "****** Seneca Valet Parking ******" << std::endl;
+        std::cout << "*****  Available spots: ";
+        std::cout << std::setw(4) << std::left << this->num_of_spots << std::endl;
+        std::cout << "*****" << std::endl;
     }
 
     /* park vehicle */
-    void Parking::park_vehicle() const
+    void Parking::park_vehicle()
     {
-        switch (this->vehicle_selection_menu.run())
+        if (this->num_of_parked_vehicles < this->num_of_spots)
         {
-        case 1:
-            std::cout << "Parking Car" << std::endl;
-            break;
-        case 2:
-            std::cout << "Parking Motorcycle" << std::endl;
-            break;
-        case 3:
-            std::cout << "Cancelled parking" << std::endl;
-            break;
-        default:
-            break;
+            std::cout << "Parking is full" << std::endl;
+        }
+        else
+        {
+            switch (this->vehicle_selection_menu.run())
+            {
+            case 1:
+                std::cout << "Parking Car" << std::endl;
+
+                // dynamically create an instance of Car as Vehicle pointer
+                Vehicle *vehicle = new Car();
+
+                // set CSV to false
+                vehicle->setCsv(false);
+
+                // read from console
+                vehicle->read(std::cin);
+
+                // search parking spots array for first available spot, set it to the Car obj
+                for (int index = 0; index < this->num_of_spots; index++)
+                {
+                    if (parking_spots[index] == nullptr)
+                    {
+                        parking_spots[index] = vehicle;
+                        parking_spots[index]->setParkingSpot(index + 1);
+
+                        this->num_of_parked_vehicles++;
+
+                        std::cout << "Parking Ticket" << std::endl;
+                        parking_spots[index]->write(std::cout);
+
+                        break;
+                    }
+                }
+
+                break;
+            case 2:
+                std::cout << "Parking Motorcycle" << std::endl;
+
+                // dynamically create an instance of Motorcycle as Vehicle pointer
+                Vehicle *vehicle = new Motorcycle();
+
+                // set CSV to false
+                vehicle->setCsv(false);
+
+                // read from console
+                vehicle->read(std::cin);
+
+                // search parking spots array for first available spot, set it to the Motorcycle obj
+                for (int index = 0; index < this->num_of_spots; index++)
+                {
+                    if (parking_spots[index] == nullptr)
+                    {
+                        parking_spots[index] = vehicle;
+                        parking_spots[index]->setParkingSpot(index + 1);
+
+                        this->num_of_parked_vehicles++;
+
+                        std::cout << "Parking Ticket" << std::endl;
+                        parking_spots[index]->write(std::cout);
+                        
+                        break;
+                    }
+                }
+
+                break;
+            case 3:
+                std::cout << "Parking Cancelled" << std::endl;
+                break;
+            default:
+                break;
+            }
         }
     }
 
     /* return vehicle */
-    void Parking::return_vehicle() const
+    void Parking::return_vehicle()
     {
-        std::cout << "Returning Vehicle" << std::endl;
+        std::cout << "Return Vehicle" << std::endl;
+
+        char buffer[10];
+        bool found = false;
+
+        std::cout << "Enter Licence Plate Number: ";
+        while (std::strlen(buffer) < 1 && std::strlen(buffer) > 8)
+        {
+            std::cout << "Invalid Licence Plate, try again: ";
+            std::cin.getline(buffer, 10, '\n');
+        }
+
+        for (int index = 0; index < this->num_of_spots; index++)
+        {
+            if (this->parking_spots[index] != nullptr)
+            {
+                if (*this->parking_spots[index] == &buffer[0])
+                {
+                    found = true;
+
+                    std::cout << "Returning: " << std::endl;
+                    this->parking_spots[index]->write(std::cout);
+
+                    delete[] this->parking_spots[index];
+                    this->parking_spots[index] = nullptr;
+                }
+            }
+        }
+
+        if (!found)
+        {
+            std::cout << "License plate " << buffer << " Not found" << std::endl;
+        }
     }
 
     /* list parked vehicles */
@@ -253,9 +381,8 @@ namespace sdds
                 {
                     throw false;
                 }
-                
             }
-            catch(bool glove)
+            catch (bool glove)
             {
                 if (glove)
                 {
@@ -267,7 +394,7 @@ namespace sdds
                     continue;
                 }
             }
-            catch (const std::exception& e)
+            catch (const std::exception &e)
             {
                 std::cout << "Invalid response, only (Y)es or (N)o are acceptable, retry: ";
                 continue;
@@ -283,7 +410,6 @@ namespace sdds
         {
             return false;
         }
-        
     }
 
     /* loads the data file */
