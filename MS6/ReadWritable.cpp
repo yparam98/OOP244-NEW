@@ -1,11 +1,16 @@
-/*****************************************************/
-/*  Student:    Yathavan Parameshwaran               */
-/*  Student #:  070 692 140                          */
-/*  Assignment: Final Project: MS3: ReadWritable.cpp */
-/*  Course:     OOP244 (retake)                      */
-/*  Professor:  Andrei Sajeniouk                     */
-/*  Date:       August 5, 2020                       */
-/*****************************************************/
+/******************************************************/
+/*  Student:    Yathavan Parameshwaran                */
+/*  Student #:  070 692 140                           */
+/*  Assignment: Final Project: MS6: ReadWritable.cpp  */
+/*  Course:     OOP244 (retake)                       */
+/*  Professor:  Andrei Sajeniouk                      */
+/*  Date:       August 15, 2020                       */
+/******************************************************/
+/******************************************************/
+/* I have done all the coding by myself and only      */ 
+/*  copied the code that my professor provided        */
+/*  to complete this program.                         */
+/******************************************************/
 
 #include "ReadWritable.h"
 

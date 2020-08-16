@@ -1,10 +1,15 @@
 /*************************************************/
 /*  Student:    Yathavan Parameshwaran           */
 /*  Student #:  070 692 140                      */
-/*  Assignment: Final Project: MS2: Parking.cpp  */
+/*  Assignment: Final Project: MS6: Parking.cpp  */
 /*  Course:     OOP244 (retake)                  */
 /*  Professor:  Andrei Sajeniouk                 */
-/*  Date:       July 17, 2020                    */
+/*  Date:       August 15, 2020                  */
+/*************************************************/
+/*************************************************/
+/* I have done all the coding by myself and only */ 
+/*  copied the code that my professor provided   */
+/*  to complete this program.                    */
 /*************************************************/
 
 #include <iostream>
@@ -22,8 +27,9 @@ namespace sdds
         this->indentation = 0;
         this->parking_menu = Menu();
         this->vehicle_selection_menu = Menu();
+        this->num_of_spots = 0;
+        this->num_of_parked_vehicles = 0;
 
-        // added for ms6
         for (int index = 0; index < MAX_PARKING_SPOTS; index++)
         {
             this->parking_spots[index] = nullptr;
@@ -45,10 +51,14 @@ namespace sdds
             this->file_name[size] = '\0';
         }
 
-        // added for ms6
         if (noOfSpots <= 10 || noOfSpots >= MAX_PARKING_SPOTS)
         {
             this->num_of_spots = noOfSpots;
+
+            for (int i = 0; i < num_of_spots; i++)
+            {
+                this->parking_spots[i] = nullptr;
+            }
         }
         else
         {
@@ -76,8 +86,6 @@ namespace sdds
             std::cout << "Error in data file" << std::endl;
             this->set_invalid();
         }
-
-        
     }
 
     /* destructor: deallocates (frees) any previously allocated memory */
@@ -91,50 +99,15 @@ namespace sdds
             this->file_name = nullptr;
         }
 
-        // added for ms6
-        for (int index = 0; index < MAX_PARKING_SPOTS; index++)
+        for (int index = 0; index < num_of_parked_vehicles; index++)
         {
             if (this->parking_spots[index] != nullptr)
             {
-                delete[] this->parking_spots[index];
+                delete this->parking_spots[index];
                 this->parking_spots[index] = nullptr;
             }
         }
     }
-
-    /* (deleted) copy constructor: copies existing object into new object */
-    // Parking::Parking(const Parking &incoming_obj)
-    // {
-    // this->file_name = nullptr;
-    // this->indentation = 0;
-    // this->parking_menu = Menu();
-    // this->vehicle_selection_menu = Menu();
-
-    // *this = incoming_obj;
-    // }
-
-    /* (deleted) copy assignment operator: copies existing object into another already existing object */
-    // Parking &Parking::operator=(const Parking &incoming_obj)
-    // {
-    // if (this != &incoming_obj)
-    // {
-    //     this->indentation = incoming_obj.indentation;
-    //     this->parking_menu = incoming_obj.parking_menu;                     // should call Menu copy-assignment operator
-    //     this->vehicle_selection_menu = incoming_obj.vehicle_selection_menu; // same deal
-
-    //     if (this->file_name != nullptr)
-    //     {
-    //         delete[] this->file_name;
-    //         this->file_name = nullptr;
-    //     }
-
-    //     this->file_name = new char[std::strlen(incoming_obj.file_name) + 1];
-    //     std::strncpy(this->file_name, incoming_obj.file_name, std::strlen(incoming_obj.file_name));
-    //     this->file_name[std::strlen(incoming_obj.file_name)] = '\0';
-    // }
-
-    // return *this;
-    // }
 
     /* run function: runs Parking module */
     int Parking::run()
@@ -211,16 +184,17 @@ namespace sdds
     /* status function */
     void Parking::status() const
     {
-        std::cout << "****** Seneca Valet Parking ******" << std::endl;
+        std::cout << "\n****** Seneca Valet Parking ******" << std::endl;
         std::cout << "*****  Available spots: ";
-        std::cout << std::setw(4) << std::left << this->num_of_spots << std::endl;
-        std::cout << "*****" << std::endl;
+        std::cout << std::setw(4) << std::left << (this->num_of_spots - this->num_of_parked_vehicles);
+        std::cout << " *****\n"
+                  << std::endl;
     }
 
     /* park vehicle */
     void Parking::park_vehicle()
     {
-        if (this->num_of_parked_vehicles < this->num_of_spots)
+        if (this->num_of_parked_vehicles == this->num_of_spots)
         {
             std::cout << "Parking is full" << std::endl;
         }
@@ -251,8 +225,9 @@ namespace sdds
 
                         this->num_of_parked_vehicles++;
 
-                        std::cout << "Parking Ticket" << std::endl;
+                        std::cout << "\nParking Ticket" << std::endl;
                         parking_spots[index]->write(std::cout);
+                        std::cout << std::endl;
 
                         break;
                     }
@@ -312,13 +287,14 @@ namespace sdds
         bool found = false;
 
         std::cout << "Enter Licence Plate Number: ";
+        std::cin.getline(buffer, 10, '\n');
         while (std::strlen(buffer) < 1 && std::strlen(buffer) > 8)
         {
             std::cout << "Invalid Licence Plate, try again: ";
             std::cin.getline(buffer, 10, '\n');
         }
 
-        for (int index = 0; index < this->num_of_spots; index++)
+        for (int index = 0; index < this->num_of_parked_vehicles; index++)
         {
             if (this->parking_spots[index] != nullptr)
             {
@@ -326,11 +302,16 @@ namespace sdds
                 {
                     found = true;
 
-                    std::cout << "Returning: " << std::endl;
+                    std::cout << "\nReturning: " << std::endl;
                     this->parking_spots[index]->write(std::cout);
+                    std::cout << std::endl;
 
-                    delete[] this->parking_spots[index];
+                    delete this->parking_spots[index];
                     this->parking_spots[index] = nullptr;
+
+                    this->num_of_parked_vehicles--;
+
+                    break;
                 }
             }
         }
@@ -344,11 +325,18 @@ namespace sdds
     /* list parked vehicles */
     void Parking::list_parked_vehicles() const
     {
-        for (int index = 0; index < this->num_of_spots; index++)
+        std::cout << std::endl;
+        for (int index = 0; index < this->num_of_parked_vehicles; index++)
         {
-            this->parking_spots[index]->write(std::cout);
-            std::cout << "-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐" << std::endl;
+
+            if (this->parking_spots[index] != nullptr)
+            {
+                this->parking_spots[index]->setCsv(false);
+                this->parking_spots[index]->write(std::cout);
+                std::cout << "-------------------------------" << std::endl;
+            }
         }
+        std::cout << std::endl;
     }
 
     /* close parking */
@@ -365,13 +353,13 @@ namespace sdds
             std::cout << "This will Remove and tow all remaining Vehicles from the Parking!" << std::endl;
 
             char *holder = new char[60];
-            std::cout << "Are you sure? (Y)es/(N)o: " << std::endl;
-            std::cin.ignore(1000, '\n');
+            std::cout << "Are you sure? (Y)es/(N)o: ";
+            // std::cin.ignore(1000, '\n');
             std::cin.getline(holder, 60, '\n');
 
-            while (std::strlen(holder) != 1 && (holder[0] != 'y' || holder[0] != 'Y' || holder[0] != 'N' || holder[0] != 'n'))
+            while ((std::strlen(holder) > 1) && (holder[0] != 'y' || holder[0] != 'Y' || holder[0] != 'N' || holder[0] != 'n'))
             {
-                std::cin.ignore(1000, '\n');
+                // std::cin.ignore(1000, '\n');
                 std::cout << "Invalid response, only (Y)es or (N)o are acceptable, retry: ";
                 std::cin.getline(holder, 20, '\n');
             }
@@ -453,7 +441,7 @@ namespace sdds
             }
         }
 
-        if (std::strncmp(response, "y", 1) == 0)
+        if ((std::strncmp(response, "y", 1) == 0) || (std::strncmp(response, "Y", 1) == 0))
         {
             std::cout << "Exiting program!" << std::endl;
             return true;
@@ -467,6 +455,7 @@ namespace sdds
     /* loads the data file */
     bool Parking::load_data_file()
     {
+        int num_of_records = 0;
         // if parking is not invalid
         // open file using ifstream
         // read one character from the file and ignore the next
@@ -481,7 +470,7 @@ namespace sdds
         {
             char one_character = '\0';
             char *buffer = new char[100];
-            int num_of_lines = 0;
+            // int num_of_lines = 0;
 
             Vehicle *vehicle;
 
@@ -495,7 +484,7 @@ namespace sdds
                     // std::getline(readfile, buffer, '\n');
                     if (std::strncmp(buffer, "", std::strlen(buffer)) != 0) // if not an empty line
                     {
-                        num_of_lines++;
+                        num_of_records++;
                     }
                 }
 
@@ -504,9 +493,9 @@ namespace sdds
                 readfile.clear();
                 readfile.seekg(0);
 
-                this->num_of_spots = num_of_lines;
+                // this->num_of_spots = num_of_lines;
 
-                for (int index = 0; index < this->num_of_spots; index++) // keep reading until end of file
+                for (int index = 0; index < num_of_records; index++) // keep reading until end of file
                 {
                     if (readfile.peek() == '\n')
                     {
@@ -538,7 +527,6 @@ namespace sdds
                     else
                     {
                         this->parking_spots[vehicle->getParkingSpot() - 1] = vehicle;
-
                         this->num_of_parked_vehicles++;
                     }
                 }
@@ -549,7 +537,7 @@ namespace sdds
             readfile.close();
         }
 
-        return this->num_of_parked_vehicles == this->num_of_spots;
+        return this->num_of_parked_vehicles == num_of_records;
     }
 
     /* saves the data into the data file */
@@ -563,7 +551,9 @@ namespace sdds
             {
                 if (this->parking_spots[index] != nullptr)
                 {
+                    this->parking_spots[index]->setCsv(true);
                     this->parking_spots[index]->write(outfile);
+                    outfile << std::endl;
                 }
             }
         }

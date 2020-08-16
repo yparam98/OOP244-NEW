@@ -81,7 +81,7 @@ namespace sdds
 		{
 			char pos[50], lp[50], mm[50];
 
-			char test = is.peek();
+			// char test = is.peek();
 
 			// sample input:
 			// 123,abcd,abcd, <-- comma at end!
@@ -139,7 +139,9 @@ namespace sdds
 
 			while (std::strlen(holder) < 2 || std::strlen(holder) > 60)
 			{
-				is.ignore(1000, '\n');
+				if (std::strlen(holder) > 1)
+					is.ignore(1000, '\n');
+					
 				std::cout << "Invalid Make and model, try again: ";
 				is.getline(holder, 20, '\n');
 			}

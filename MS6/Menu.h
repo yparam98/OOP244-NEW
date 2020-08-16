@@ -1,11 +1,16 @@
-/**********************************************/
-/*  Student:    Yathavan Parameshwaran        */
-/*  Student #:  070 692 140                   */
-/*  Assignment: Final Project: MS1: Menu.h    */
-/*  Course:     OOP244 (retake)               */
-/*  Professor:  Andrei Sajeniouk              */
-/*  Date:       July 11, 2020                 */
-/**********************************************/
+/*************************************************/
+/*  Student:    Yathavan Parameshwaran           */
+/*  Student #:  070 692 140                      */
+/*  Assignment: Final Project: MS6: Menu.h       */
+/*  Course:     OOP244 (retake)                  */
+/*  Professor:  Andrei Sajeniouk                 */
+/*  Date:       August 15, 2020                  */
+/*************************************************/
+/*************************************************/
+/* I have done all the coding by myself and only */ 
+/*  copied the code that my professor provided   */
+/*  to complete this program.                    */
+/*************************************************/
 
 #ifndef SDDS_MENU_H
 #define SDDS_MENU_H

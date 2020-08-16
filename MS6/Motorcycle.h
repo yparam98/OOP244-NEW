@@ -1,10 +1,15 @@
 /***************************************************/
 /*  Student:    Yathavan Parameshwaran             */
 /*  Student #:  070 692 140                        */
-/*  Assignment: Final Project: MS4: Motorcycle.h   */
+/*  Assignment: Final Project: MS6: Motorcycle.h   */
 /*  Course:     OOP244 (retake)                    */
 /*  Professor:  Andrei Sajeniouk                   */
-/*  Date:       August 11, 2020                    */
+/*  Date:       August 15, 2020                    */
+/***************************************************/
+/***************************************************/
+/* I have done all the coding by myself and only   */ 
+/*  copied the code that my professor provided     */
+/*  to complete this program.                      */
 /***************************************************/
 
 #ifndef SDDS_MOTORCYCLE_H

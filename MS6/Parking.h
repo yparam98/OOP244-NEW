@@ -1,10 +1,15 @@
 /*************************************************/
 /*  Student:    Yathavan Parameshwaran           */
 /*  Student #:  070 692 140                      */
-/*  Assignment: Final Project: MS2: Parking.h    */
+/*  Assignment: Final Project: MS6: Parking.h    */
 /*  Course:     OOP244 (retake)                  */
 /*  Professor:  Andrei Sajeniouk                 */
-/*  Date:       July 17, 2020                    */
+/*  Date:       August 15, 2020                  */
+/*************************************************/
+/*************************************************/
+/* I have done all the coding by myself and only */ 
+/*  copied the code that my professor provided   */
+/*  to complete this program.                    */
 /*************************************************/
 
 #ifndef SDDS_PARKING_H
