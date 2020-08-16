@@ -34,7 +34,7 @@ namespace sdds
     {
         if (Vehicle::isCsv())
         {
-            Vehicle::read();
+            Vehicle::read(is);
 
             char sidecar_flag = '\0';
             is.get(sidecar_flag);

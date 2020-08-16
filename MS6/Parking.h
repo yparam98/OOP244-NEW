@@ -30,13 +30,15 @@ namespace sdds
         int num_of_spots{0};
         int num_of_parked_vehicles{0};
         Vehicle* parking_spots[MAX_PARKING_SPOTS];
+
+        bool invalid{false};
         
         bool isEmpty() const;
         void status() const;
         void park_vehicle();
         void return_vehicle();
         void list_parked_vehicles() const;
-        bool close_parking() const;
+        bool close_parking();
         bool exit_parking_app() const;
         bool load_data_file();
         void save_data_file() const;

@@ -81,6 +81,8 @@ namespace sdds
 		{
 			char pos[50], lp[50], mm[50];
 
+			char test = is.peek();
+
 			// sample input:
 			// 123,abcd,abcd, <-- comma at end!
 

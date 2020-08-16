@@ -8,6 +8,7 @@
 /*************************************************/
 
 #include <iostream>
+#include <fstream>
 #include <cstring>
 
 #include "Parking.h"
@@ -44,6 +45,16 @@ namespace sdds
             this->file_name[size] = '\0';
         }
 
+        // added for ms6
+        if (noOfSpots <= 10 || noOfSpots >= MAX_PARKING_SPOTS)
+        {
+            this->num_of_spots = noOfSpots;
+        }
+        else
+        {
+            this->set_invalid();
+        }
+
         if (this->load_data_file())
         {
             this->parking_menu = Menu("Parking Menu, select an action:", 0);
@@ -66,21 +77,7 @@ namespace sdds
             this->set_invalid();
         }
 
-        // added for ms6
-        if (noOfSpots < 10 || num_of_spots > MAX_PARKING_SPOTS)
-        {
-            this->num_of_spots = noOfSpots;
-        }
-        else
-        {
-            this->set_invalid();
-        }
-
-        // added for ms6
-        for (int index = 0; index < MAX_PARKING_SPOTS; index++)
-        {
-            this->parking_spots[index] = nullptr;
-        }
+        
     }
 
     /* destructor: deallocates (frees) any previously allocated memory */
@@ -232,6 +229,7 @@ namespace sdds
             switch (this->vehicle_selection_menu.run())
             {
             case 1:
+            {
                 std::cout << "Parking Car" << std::endl;
 
                 // dynamically create an instance of Car as Vehicle pointer
@@ -259,9 +257,12 @@ namespace sdds
                         break;
                     }
                 }
+            }
 
-                break;
+            break;
+
             case 2:
+            {
                 std::cout << "Parking Motorcycle" << std::endl;
 
                 // dynamically create an instance of Motorcycle as Vehicle pointer
@@ -285,12 +286,14 @@ namespace sdds
 
                         std::cout << "Parking Ticket" << std::endl;
                         parking_spots[index]->write(std::cout);
-                        
+
                         break;
                     }
                 }
+            }
 
-                break;
+            break;
+
             case 3:
                 std::cout << "Parking Cancelled" << std::endl;
                 break;
@@ -341,14 +344,63 @@ namespace sdds
     /* list parked vehicles */
     void Parking::list_parked_vehicles() const
     {
-        std::cout << "Listing Parked Vehicles" << std::endl;
+        for (int index = 0; index < this->num_of_spots; index++)
+        {
+            this->parking_spots[index]->write(std::cout);
+            std::cout << "-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐-­‐" << std::endl;
+        }
     }
 
     /* close parking */
-    bool Parking::close_parking() const
+    bool Parking::close_parking()
     {
-        std::cout << "Closing Parking" << std::endl;
-        return true;
+        if (this->isEmpty())
+        {
+            std::cout << "Closing Parking" << std::endl;
+            return true;
+        }
+        else
+        {
+            char option = '\0';
+            std::cout << "This will Remove and tow all remaining Vehicles from the Parking!" << std::endl;
+
+            char *holder = new char[60];
+            std::cout << "Are you sure? (Y)es/(N)o: " << std::endl;
+            std::cin.ignore(1000, '\n');
+            std::cin.getline(holder, 60, '\n');
+
+            while (std::strlen(holder) != 1 && (holder[0] != 'y' || holder[0] != 'Y' || holder[0] != 'N' || holder[0] != 'n'))
+            {
+                std::cin.ignore(1000, '\n');
+                std::cout << "Invalid response, only (Y)es or (N)o are acceptable, retry: ";
+                std::cin.getline(holder, 20, '\n');
+            }
+
+            option = holder[0];
+            delete[] holder;
+
+            if (option == 'y' || option == 'Y')
+            {
+                std::cout << "Closing Parking" << std::endl;
+                for (int index = 0; index < this->num_of_parked_vehicles; index++)
+                {
+                    if (this->parking_spots[index] != nullptr)
+                    {
+                        std::cout << "Towing request" << std::endl;
+                        std::cout << "*********************" << std::endl;
+                        this->parking_spots[index]->write(std::cout);
+                        std::cout << std::endl;
+                        delete this->parking_spots[index];
+                        this->parking_spots[index] = nullptr;
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
     /* exit the Parking application */
@@ -415,24 +467,108 @@ namespace sdds
     /* loads the data file */
     bool Parking::load_data_file()
     {
-        if (!this->isEmpty())
+        // if parking is not invalid
+        // open file using ifstream
+        // read one character from the file and ignore the next
+        // if the character is 'M', create a Motorcycle and keep instance in Vehicle pointer
+        // if the character is 'C', create a Car and keep instance in Vehicle pointer
+        // set Vehicle to CSV
+        // read from data file
+        // save vehicle pointer to element in parking spot array that corresponds to parking spot of the vehicle
+        // if number of read records is less than number of sport, go back to step one
+
+        if (!this->invalid)
         {
-            std::cout << "loading data from " << this->file_name << std::endl;
-            return true;
+            char one_character = '\0';
+            char *buffer = new char[100];
+            int num_of_lines = 0;
+
+            Vehicle *vehicle;
+
+            std::ifstream readfile(this->file_name);
+
+            if (readfile.good()) // if no errors
+            {
+                while (!readfile.eof())
+                {
+                    readfile.getline(buffer, 100, '\n');
+                    // std::getline(readfile, buffer, '\n');
+                    if (std::strncmp(buffer, "", std::strlen(buffer)) != 0) // if not an empty line
+                    {
+                        num_of_lines++;
+                    }
+                }
+
+                delete[] buffer;
+
+                readfile.clear();
+                readfile.seekg(0);
+
+                this->num_of_spots = num_of_lines;
+
+                for (int index = 0; index < this->num_of_spots; index++) // keep reading until end of file
+                {
+                    if (readfile.peek() == '\n')
+                    {
+                        readfile.ignore();
+                    }
+                    one_character = readfile.get();
+                    readfile.ignore();
+                    // readfile.getline(buffer, '\n'); // store each line into this
+                    // num_of_lines++;
+
+                    // one_character = buffer[0];
+                    if (one_character == 'M')
+                    {
+                        vehicle = new Motorcycle;
+                    }
+                    else if (one_character == 'C')
+                    {
+                        vehicle = new Car;
+                    }
+
+                    vehicle->setCsv(true);
+                    vehicle->read(readfile);
+                    // readfile.ignore();
+
+                    if (vehicle->getParkingSpot() == 0) //  if read was unsuccessful
+                    {
+                        delete vehicle;
+                    }
+                    else
+                    {
+                        this->parking_spots[vehicle->getParkingSpot() - 1] = vehicle;
+
+                        this->num_of_parked_vehicles++;
+                    }
+                }
+            }
+
+            invalid = readfile.bad();
+
+            readfile.close();
         }
-        else
-        {
-            return false;
-        }
+
+        return this->num_of_parked_vehicles == this->num_of_spots;
     }
 
     /* saves the data into the data file */
     void Parking::save_data_file() const
     {
-        if (!this->isEmpty())
+        std::ofstream outfile(this->file_name);
+
+        if (outfile.good())
         {
-            std::cout << "Saving data into " << this->file_name << std::endl;
+            for (int index = 0; index < this->num_of_parked_vehicles; index++)
+            {
+                if (this->parking_spots[index] != nullptr)
+                {
+                    this->parking_spots[index]->write(outfile);
+                }
+            }
         }
+
+        outfile.close();
     }
 
     void Parking::set_invalid()
@@ -441,6 +577,7 @@ namespace sdds
         this->parking_menu = Menu();
         this->parking_menu = Menu();
         this->file_name = nullptr;
+        this->invalid = true;
     }
 
 } // namespace sdds
